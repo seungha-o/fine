@@ -1,0 +1,190 @@
+@charset "UTF-8";
+	
+* {
+	margin: 0;
+}
+
+body {
+	max-width: 100%;
+	height: 100%;
+	margin: auto;
+	font-family: 'Source Sans Pro ';
+}
+
+/*  #header {
+   background-color: rgb(175, 230, 209);
+   width: 100%;
+   height: 100%;
+}  */
+#section {
+	background-color: #fff8e1;
+	width: 100%;
+	height: 900px;
+}
+
+html {
+	background: #f5f7f8;
+	font-family: 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+	color: #fdfbfa;
+}
+
+.navbar {
+	/* 아이콘 나란히 */
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: hsl(167, 49%, 35%);
+	padding: 8px 12px;
+}
+
+.navbar_logo {
+	font-size: 24px;
+	color: white;
+}
+
+.navbar_logo i {
+	color: #d49466;
+}
+
+.navbar_menu {
+	border: 1px solid white;
+	display: flex;
+	list-style: none;
+	padding-left: 0;
+	padding: 40px, 40px;
+}
+
+.navbar_menu li {
+	padding: 8px 12px;
+}
+
+.navbar_menu li:hover {
+	background-color: #d49466;
+	border-radius: 4px;
+}
+
+.navbar_icons {
+	list-style: none;
+	color: white;
+	display: flex;
+	padding-left: 0;
+}
+
+.navbar_icons li {
+	padding: 8px 12px;
+}
+
+@media screen and (max-width: 768px) {
+	.navbar {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 8px 24px;
+	}
+	.navbar_menu {
+		flex-direction: row;
+		align-items: center;
+		width: 100%;
+	}
+	.navbar_menu a {
+		display: inline;
+	}
+	.navbar_icons {
+		justify-content: center;
+		width: 100%;
+	}
+}
+
+h1 {
+	font-size: 50px;
+	margin: 0;
+	color: #333;
+}
+
+article {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 15px;
+}
+
+article p {
+	flex: 1;
+}
+
+@media screen and (min-width:500px) {
+	.band {
+		grid-template-columns: 1fr 1fr;
+	}
+	.item-1 {
+		grid-column: 1/3;
+	}
+}
+
+@media screen and (min-width:850px) {
+	.band {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+#footer {
+	padding: 30px 0;
+	background-color: burlywood;
+	position: relative;
+	bottom: 0;
+	border-top: 1px solid #dbdbdb;
+}
+
+.footer {
+	text-align: center;
+	padding: 30px 50px;
+}
+
+.footer li {
+	position: relative;
+	display: inline;
+	padding: 0 7px 0 10px;
+	white-space: nowrap;
+}
+
+.footer li:before {
+	content: '';
+	width: 1px;
+	height: 12px;
+	background-color: #dbdbdb;
+	position: absolute;
+	left: 0;
+	top: 2px;
+}
+
+.footer li:first-child:before {
+	width: 0;
+}
+
+.footer address {
+	padding-top: 15px;
+}
+
+#button {
+	display: flex;
+	justify-content: center;
+	background-color: gray;
+}
+
+a {
+	text-decoration: none;
+	display: inline-block;
+	padding: 8px 16px;
+}
+
+a:hover :not(table) {
+	background-color: #ddd;
+	color: black;
+}
+
