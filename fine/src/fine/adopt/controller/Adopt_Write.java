@@ -57,7 +57,8 @@ public class Adopt_Write extends HttpServlet {
 				System.out.println("업로드 실패");
 		}
 		
-		String id = mReq.getParameter("id");
+		String id = (String) request.getSession().getAttribute("sessionID");
+		String level = mReq.getParameter("level");
 		String title = mReq.getParameter("title");
 		String content = mReq.getParameter("content");
 		try {
@@ -75,6 +76,8 @@ public class Adopt_Write extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		request.setAttribute("id", id);
+		request.setAttribute("level", level);
 		RequestDispatcher disp = request.getRequestDispatcher("adoptList.do");
 		disp.forward(request, response);
 //		response.sendRedirect("./qnaList.do");

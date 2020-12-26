@@ -75,17 +75,11 @@ public class Find_manage_data_update extends HttpServlet {
 		factory.setNamespaceAware(true);
 		DocumentBuilder builder;
 		Document doc = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		Calendar cal = Calendar.getInstance();
+		String today = sdf.format(cal.getTime());
 		 
-		//현재 년도, 월, 일
-		int year = cal.get ( cal.YEAR );
-		int month = cal.get ( cal.MONTH ) + 1 ;
-		int date = cal.get ( cal.DATE ) ;
-		String curryear = String.valueOf(year);
-		String currmonth = String.valueOf(month);
-		String currdate = String.valueOf(date);
-		String today = curryear+currmonth+currdate;
-		System.out.println(today);
+		
 
 
 		try {
@@ -162,9 +156,10 @@ public class Find_manage_data_update extends HttpServlet {
 			System.out.println("db다시");
 			
 		}
+		String ctx = request.getContextPath();
 		PrintWriter out = response.getWriter();
 		out.append("<script>alert('데이터를 최신화 하였습니다')</script>");
-		out.println("<script>location.href='./view/main/index.jsp'</script>"); 
+		out.println("<script>location.href='"+ctx+"/findHowMany.do'</script>"); 
 		
 	}
 

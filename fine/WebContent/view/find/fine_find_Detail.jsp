@@ -10,94 +10,97 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99b1d8e23b122c900c17996f24c1ec0e&libraries=services"></script>
-<style>
-table {
-    border-collapse: collapse;
-}
 
-table tr, th, td {
-    border: 1px solid black;
-    text-align: center;
-    padding:5px;
-    
-}
+<!-- icon(fontawesome) -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxpath %>/css/head_foot.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+<!-- CSS -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"></script>
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+rel="stylesheet">
+
+
+<style>
+section {
+  width: 80%;
+	margin: 10vh auto;
+		}
+		
+		h3{
+		display: inline;
+		}
 </style>
 </head>
 <body>
-<div id="map" style="width:600px;height:500px;"></div>
-<form>
-        
-                 	<c:if test="${not empty list}">
-					<c:forEach items="${ list }" var="mvo" varStatus="s">
-            <table>
-       
-            		<tr>
-                        <td colspan="2"><img src="${mvo.popfile}"></td>
-                    </tr>
-                    <tr>
-                        <td>나이</td>
-                        <td>${mvo.age}</td>
-                    </tr>
 
-                     <tr>
-                        <td>발견위치</td>
-                        <td>${mvo.happenPlace}</td>
+<c:if test="${not empty list}">
+<c:forEach items="${ list }" var="mvo" varStatus="s">
+<jsp:include page="/common/header.jsp" />
+<section>
+<form>				
+                 	<div id = jhb-content style="display: flex; flex-wrap: wrap;justify-content:space-around; ">
+					<div id=dogImg>
+					<img src="${mvo.popfile}" width="700px" height="800px">
+					</div>
+					<div id=dogInfo>
+                        <h3>발견위치 : </h3> ${mvo.happenPlace}<br><br>
               
-                    </tr>
-                     <tr>
-                        <td>발견날자</td>
-                        <td>${mvo.happenDt}</td>
+                    
               
-                    </tr>
-                     <tr>
-                        <td>보호중인 시설</td>
-                        <td id="careName">${mvo.careNm}</td>
+                         <h3>발견날자 : </h3>${mvo.happenDt}<br><br>
               
-                    </tr>
-                     <tr>
-                        <td>보호시설 주소</td>
-                        <td id="address">${mvo.careAddr}</td>
+                    
+                       <h3>보호중인 시설 : </h3>
+                        <p id="careName" style="display: inline;">${mvo.careNm}</p><br><br>
               
-                    </tr>
-                     <tr>
-                        <td>보호시설 번호</td>
-                        <td>${mvo.careTel}</td>
+                   
+                         <h3>보호시설 주소 : </h3>
+                        <p id="address" style="display: inline;">${mvo.careAddr}</p><br><br>
               
-                    </tr>
-                      <tr>
-                        <td>색갈</td>
-                        <td>${mvo.colorCd}</td>
+                    
+                         <h3>보호시설 번호 : </h3>${mvo.careTel}<br><br>
+                         <h3>견종 : </h3>${mvo.kindCd}<br><br>
               
-                    </tr>
-                     <tr>
-                        <td>성별</td>
-                        <td>${mvo.sexCd}</td>
-              
-                    </tr>
-                    <tr>
-                        <td>중성화 유무</td>
-                        <td>${mvo.neuterYn}</td>
-                    </tr>
-                      <tr>
-                        <td>몸무게</td>
-                        <td>${mvo.weight}</td>
-                    </tr>
-                      <tr>
-                        <td>특이사항</td>
-                        <td>${mvo.specialMark}</td>
-                    </tr>
+          					 <h3>나이  : </h3>${mvo.age}<br><br>
+                    
+                    
+                         <h3>색깔  : </h3>${mvo.colorCd}<br><br>
               
                   
-                    <tr>
+                         <h3>성별 : </h3>${mvo.sexCd}<br><br>
+              
+
+                         <h3>중성화 유무 : </h3> ${mvo.neuterYn}<br><br>
                     
-                        <td colspan="2">
-                        <button type="button" id="BtnGoList" onclick="window.location='<%=ctxpath%>/find_Lists.do'">글목록</button>
-                        </td> 
-                    </tr>        
-            </table>
-       	 </c:forEach>
-				</c:if>
+                         <h3>몸무게 : </h3> ${mvo.weight}<br><br>
+                    
+                         <h3>특이사항 : </h3> ${mvo.specialMark}<br><br>
+                         </div>
+                         </div>
+                   
+                    
+                    <div style="width:1550px; margin-bottom: 50px">
+					<div id="map" style="width:100%;height:500px;"></div>
+        			</div>
+                        <button type="button" id="BtnGoList" onclick="window.location='<%=ctxpath%>/find_Lists.do'" style="width: 150px; height: 50px;">글목록</button>
+
+				
    </form>
+   </section>
+       	 </c:forEach>
+   </c:if>
    <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
@@ -151,5 +154,6 @@ geocoder.addressSearch(address, function(result, status) {
 
 
 </script> 
+<jsp:include page="/common/footer.jsp" />	
 </body>
 </html>

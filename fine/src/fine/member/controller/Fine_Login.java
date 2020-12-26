@@ -45,7 +45,7 @@ public class Fine_Login extends HttpServlet {
 			request.getSession().setAttribute("sessionID", id);
 			request.setAttribute("result", result);
 			out.println("<script>alert('로그인성공');</script>");
-			out.println("<script>location.href='"+ctxPath+"/view/main/index.jsp'</script>");
+			out.println("<script>location.href='"+ctxPath+"/findHowMany.do'</script>");
 		} else if(result == 0) {
 			out.println("<script>alert('비밀번호를 확인해주세요.');</script>");
 			out.println("<script>location.href='"+ctxPath+"/view/member/Fine_Member_Login.jsp'</script>");

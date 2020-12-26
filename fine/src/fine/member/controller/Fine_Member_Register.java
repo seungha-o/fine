@@ -84,14 +84,14 @@ public class Fine_Member_Register extends HttpServlet {
 		if(result == 1) {
 			if(a == 1) {
 				out.println("<script> alert('회원가입에 성공하였습니다 관리자의 승인후 이용해주시기바랍니다.')</script>");
-				out.println("<script> location.href=('"+ctx+"/view/main/index.jsp')</script>");
+				out.println("<script> location.href=('"+ctx+"/findHowMany.do')</script>");
 			}else {
 				
 				request.getRequestDispatcher("/gmailSendAction.do").forward(request, response);
 			}
 		}else {
 			out.println("<script> alert('회원가입에 실패하였습니다.')</script>");
-			out.println("<script> location.href=('"+ctx+"/view/main/index.jsp')</script>");
+			out.println("<script> location.href=('"+ctx+"/findHowMany.do')</script>");
 		}
 	
 //		response.sendRedirect(ctx+"/member/gmailSendAction.jsp");

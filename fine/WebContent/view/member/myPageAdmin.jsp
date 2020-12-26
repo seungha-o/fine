@@ -13,7 +13,21 @@
 <meta charset="UTF-8">
 <title>전체 회원 정보 - 관리자</title>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
-</head>
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxPath%>/css/head_foot.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+<!-- CSS -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
 	rel="stylesheet">
@@ -23,7 +37,7 @@
 }
 
 body {
-	max-width: 1467px;
+	max-width: 100%;
 	height: 100%;
 	margin: auto;
 	font-family: 'Source Sans Pro ';
@@ -35,11 +49,37 @@ body {
    height: 100%;
 }  */
 #section {
-	background-color: #fff8e1;
+	background-color:  #f5f7f8;
 	width: 100%;
 	height: 900px;
 }
+table {
+   border-collapse: collapse;
+	text-align : center;
+	margin : auto;
+	width : 1200px;
+	position : relative;
+	top : 50px;
+	border-radius: 1em;
+}
+table td {
+  text-align: left;
+  padding: 8px;
+}
 
+table tr:nth-child(even){background-color: #dcdcdc}
+table tr:hover :not(th){background-color: #aaaaaa}
+table a {padding : 0; color : black;}
+th { height : 50px; border : 1px; }
+
+form { 
+	margin: 0 auto;  
+	padding : 20px; 
+}
+.pagediv {margin: 0 auto;  
+	      padding : 20px; 
+	      
+	      text-align : center;}
 html {
 	background: #f5f7f8;
 	font-family: 'Roboto', sans-serif;
@@ -151,43 +191,6 @@ article p {
 	}
 }
 
-#footer {
-	padding: 30px 0;
-	background-color: burlywood;
-	position: relative;
-	bottom: 0;
-	border-top: 1px solid #dbdbdb;
-}
-
-.footer {
-	text-align: center;
-	padding: 30px 50px;
-}
-
-.footer li {
-	position: relative;
-	display: inline;
-	padding: 0 7px 0 10px;
-	white-space: nowrap;
-}
-
-.footer li:before {
-	content: '';
-	width: 1px;
-	height: 12px;
-	background-color: #dbdbdb;
-	position: absolute;
-	left: 0;
-	top: 2px;
-}
-
-.footer li:first-child:before {
-	width: 0;
-}
-
-.footer address {
-	padding-top: 15px;
-}
 
 #button {
 	display: flex;
@@ -203,7 +206,7 @@ a {
 	
 }
 a:hover {
-	background-color: #ddd;
+	background-color: #505050;
 	color: black;
 }
 
@@ -216,28 +219,14 @@ function FunS() {
 		search.submit();
 	}
 </script>
+</head>
+
 <body>
-	<h1 align="center">FINE Web Project</h1>
-	<header id="header">
-		<nav class="navbar">
-			<div class="navbar_logo">
-				<i class="fas fa-paw"></i> <a href="">Fine</a>
-			</div>
-			<!-- 메뉴 -->
-			<ul class="navbar_menu">
-				<li><a href="">찾기</a></li>
-				<li><a href="">등록</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">커뮤니티</a></li>
-				<li><a href="<%=ctxPath%>/MyPage.do">마이페이지</a></li>
-			</ul>
-			<!--아이콘  -->
-			<ul class="navbar_icons">
-				<li><i class="fab fa-instagram"></i></li>
-				<li><i class="fab fa-facebook-square"></i></li>
-			</ul>
-		</nav>
-	</header>
+	
+<!-- HEADER -->
+	<jsp:include page="/common/header.jsp" />
+	
+<!-- SECTION -->	
 	<section id="section">
 		<form name="SearchForm">
 			<table>
@@ -245,25 +234,22 @@ function FunS() {
 					<td colspan="3"><h2>전체 회원 정보</h2></td>
 				</tr>
 				<tr>
-					<td>ID 찾기 :</td>
-					<td><input type="text" name="id" id="searchid"></td>
-					<td><button type="button" id="send" onclick="FunS()">검색</button></td>
+					<td></td>
+					<td><input type="text" name="id" id="searchid" style="height:30px; width: 650px;"></td>
+					<td><button type="button" id="send" style="height: 35px; background: #dcdcdc; font-size: 1em; border-radius: 0.5em; padding: 2px 20px;" onclick="FunS()">ID 검색</button></td>
 				</tr>
 			</table>
 		</form>
-
-
 		<div>
 			<form name="AdminForm">
 				<table border="2">
-					<tr>
-						<td>번 호</td>
+					<tr>						
 						<td>아이디</td>
 						<td>보호소</td>
-						<td>이 름</td>
+						<td>이  름</td>
 						<td>핸드폰 번호</td>
 						<td>Email</td>
-						<td>주 소</td>
+						<td>주  소</td>
 						<td>좋아하는 품종</td>
 						<td>등급</td>
 						<td>권한 관리</td>
@@ -274,8 +260,7 @@ function FunS() {
 					</tr>
 					<c:if test="${not empty myPageList}">
 						<c:forEach items="${myPageList }" var="vo" varStatus="s">
-							<tr>
-								<td>${s.count }</td>
+							<tr>								
 								<td>${vo.id }</td>
 								<td>${vo.care_no }</td>
 								<td>${vo.name }</td>
@@ -294,7 +279,7 @@ function FunS() {
 						</c:forEach>
 					</c:if>
 
-					<c:if test="${empty myPageList }">
+					<c:if test="${empty myPageList }"><br>
 						<tr>
 							<td colspan="13">가입된 회원이 없습니다.</td>
 						</tr>
@@ -303,7 +288,7 @@ function FunS() {
 			</form>
 			<div class="pagediv">
 				<c:if test="${startPage != endPage}">
-					<c:forEach varStatus="s" begin="${startPage}" end="${endPage}"
+					<c:forEach  varStatus="s" begin="${startPage}" end="${endPage}"
 						step="1">
 						<a href="myPageList.do?pageNum=${s.count}">${s.count}</a>
 						<!--변경 : href 경로 -->
@@ -311,26 +296,10 @@ function FunS() {
 				</c:if>
 			</div>
 		</div>
-	</section>
-	<footer id="footer">
-		<!-- <div class="container">
-            <div class="row"> -->
-		<div class="footer">
-			<ul>
-				<li><a href="#">사이트 도움말</a></li>
-				<li><a href="#">사이트 이용약관</a></li>
-				<li><a href="#">사이트 운영원칙</a></li>
-				<li><a href="#"><strong>개인정보취급방침</strong></a></li>
-				<li><a href="#">책임의 한계와 법적고지</a></li>
-				<li><a href="#">게시중단요청서비스</a></li>
-				<li><a href="#">고객센터</a></li>
-			</ul>
-			<address>
-				Copyright &copy; <a href="#"><strong>Fine</strong></a> All Rights
-				Reserved.
-			</address>
-		</div>
-
-	</footer>
-</body>
+	</section>  
+	<!-- FOOTER -->
+	<jsp:include page="/common/footer.jsp" />
+	
+	<!-- <%@ include file="/common/footer.jsp" %> 자바 형식 -->
+	 </body>
 </html>

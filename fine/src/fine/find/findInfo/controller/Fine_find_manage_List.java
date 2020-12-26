@@ -41,17 +41,12 @@ public class Fine_find_manage_List extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 	
-		String id = "hcare";
-		String lev = "2";
-				request.getSession().setAttribute("id", id);
-				request.getSession().setAttribute("lev", lev);
-				String checkId = (String) request.getSession().getAttribute("id");
-				String checkLev = (String) request.getSession().getAttribute("lev");
-				if(request.getSession().getAttribute("lev") !="2") {
-					PrintWriter out = response.getWriter();
-					out.append("<script>alert('정상적인 접근이 아닙니다.')</script>");
-					out.println("<script>location.href='./view/main/index.jsp'</script>"); 
-				}else {
+		
+				String checkLev = (String) request.getSession().getAttribute("memberLev");
+				String checkId = (String) request.getSession().getAttribute("sessionID");
+				System.out.println("adasasdsdasd"+request.getSession().getAttribute("memberLev"));
+				System.out.println("adasasdsdasd"+request.getSession().getAttribute("sessionID"));
+				
 					FindService fService = new FindService();
 					List<FindVO> list = new ArrayList<FindVO>();
 					 
@@ -108,7 +103,7 @@ public class Fine_find_manage_List extends HttpServlet {
 					dis.forward(request, response);
 				}
 		
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

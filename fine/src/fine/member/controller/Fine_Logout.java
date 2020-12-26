@@ -20,9 +20,10 @@ public class Fine_Logout extends HttpServlet {
 		excute(request, response);
 	}
 	protected void excute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String ctx = request.getContextPath();
 		System.out.println("로그아웃");
 		request.getSession().invalidate();
-	    response.sendRedirect("./view/main/index.jsp");
+	    response.sendRedirect(ctx+"/findHowMany.do");
 	}
 
 }

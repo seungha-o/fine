@@ -39,12 +39,12 @@ public class Fine_Gmail_Check_Action extends HttpServlet {
 			if(result == 0){
 				out.println("<script>");
 				out.println("alert('이메일 인증에 성공하였습니다.')");
-				out.println("location.href='"+ctx+"/main/index.jsp'");
+				out.println("location.href='"+ctx+"/findHowMany.do'");
 				out.println("</script>");
 			} else{
 				out.println("<script>");
 				out.println("alert('이메일 인증을 실패하였습니다.')");
-				out.println("location.href='"+ctx+"/main/index.jsp'");
+				out.println("location.href='"+ctx+"/findHowMany.do'");
 				out.println("</script>");
 			}
 		} catch (SQLException e) {

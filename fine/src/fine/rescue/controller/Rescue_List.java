@@ -69,6 +69,11 @@ public class Rescue_List extends HttpServlet {
 			List<RescueVO> list = RescueService.rescueList(startRnum, endRnum);
 
 			// 보내주기
+			String lev = (String) request.getSession().getAttribute("memberLev");
+			String  id = (String) request.getSession().getAttribute("sessionID");
+
+			request.setAttribute("id", id);
+			request.setAttribute("level", lev);
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("PageNum", currentPage);

@@ -51,7 +51,7 @@ public class Training_List_manager extends HttpServlet {
 		request.getSession().setAttribute("lev", lev);
 		
 		
-			int pageSize = 2; // 페이지당 읽어올 글수
+			int pageSize = 10; // 페이지당 읽어올 글수
 			int pageBlock = 10;
 		
 

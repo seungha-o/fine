@@ -37,14 +37,11 @@ public class Find_Adopt_Search extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String id ="user";
-		String lev = "1";
-		request.getSession().setAttribute("id", id);
-		request.getSession().setAttribute("lev", lev);
-		if(request.getSession().getAttribute("id") == null) {
+		String ctx = request.getContextPath();
+		if(request.getSession().getAttribute("sessionID") == null) {
 			PrintWriter out = response.getWriter();
 			out.append("<script>alert('로그인 후 이용해 주세요')</script>");
-			out.println("<script>location.href='./view/main/index.jsp'</script>"); 
+			out.println("<script>location.href='"+ctx+"/findHowMany.do'</script>"); 
 		}else {
 			String sido = request.getParameter("sido");
 			String sigungu = request.getParameter("sigungu");

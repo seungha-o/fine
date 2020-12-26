@@ -11,278 +11,173 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- icon(fontawesome) -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxPath %>/css/head_foot.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+<!-- CSS -->
 <script src="https://kit.fontawesome.com/333b7ab4b4.js"></script>
-<script src="../js/jquery-3.5.1.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
 	rel="stylesheet">
+
 <style>
-* {
-	margin: 0;
+* {box-sizing: border-box;}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 100%;
+  position: relative;
+  margin: auto;
 }
 
-body {
-	max-width: 100%;
-	height: 100%;
-	margin: auto;
-	font-family: 'Source Sans Pro ';
+/* Caption text */
+.text {
+  font-family: "Open Sans", sans-serif;
+  color: #000000;
+  font-size: 30px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
 }
 
-/*  #header {
-   background-color: rgb(175, 230, 209);
-   width: 100%;
-   height: 100%;
-}  */
-#section {
-	background-color: #fff8e1;
-	width: 100%;
-	height: 900px;
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
 }
 
-html {
-	background: #f5f7f8;
-	font-family: 'Roboto', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	padding: 0;
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
 }
 
-a {
-	text-decoration: none;
-	color: black;
+.active {
+  background-color: #717171;
 }
 
-.navbar {
-	/* 아이콘 나란히 */
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	background-color: hsl(167, 49%, 35%);
-	padding: 8px 12px;
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
 }
 
-.navbar_logo {
-	font-size: 24px;
-	color: white;
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
 }
 
-.navbar_logo i {
-	color: #d49466;
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
 }
 
-.navbar_menu {
-	border: 1px solid white;
-	display: flex;
-	list-style: none;
-	padding-left: 0;
-	padding: 40px, 40px;
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
 }
-
-.navbar_menu li {
-	padding: 8px 12px;
+#main_section{
+width: 80%;
+  margin: 5vh auto;
 }
-
-.navbar_menu li:hover {
-	background-color: #d49466;
-	border-radius: 4px;
-}
-
-.navbar_icons {
-	list-style: none;
-	color: white;
-	display: flex;
-	padding-left: 0;
-}
-
-.navbar_icons li {
-	padding: 8px 12px;
-}
-
-@media screen and (max-width: 768px) {
-	.navbar {
-		flex-direction: column;
-		align-items: flex-start;
-		padding: 8px 24px;
-	}
-	.navbar_menu {
-		flex-direction: row;
-		align-items: center;
-		width: 100%;
-	}
-	.navbar_menu a {
-		display: inline;
-	}
-	.navbar_icons {
-		justify-content: center;
-		width: 100%;
-	}
-}
-
-h1 {
-	font-size: 50px;
-	margin: 0;
-	color: #333;
-}
-
-article {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 15px;
-}
-
-article p {
-	flex: 1;
-}
-
-@media screen and (min-width:500px) {
-	.band {
-		grid-template-columns: 1fr 1fr;
-	}
-	.item-1 {
-		grid-column: 1/3;
-	}
-}
-
-@media screen and (min-width:850px) {
-	.band {
-		grid-template-columns: repeat(4, 1fr);
-	}
-}
-
-#footer {
-	padding: 30px 0;
-	background-color: burlywood;
-	position: relative;
-	bottom: 0;
-	border-top: 1px solid #dbdbdb;
-}
-
-.footer {
-	text-align: center;
-	padding: 30px 50px;
-}
-
-.footer li {
-	position: relative;
-	display: inline;
-	padding: 0 7px 0 10px;
-	white-space: nowrap;
-}
-
-.footer li:before {
-	content: '';
-	width: 1px;
-	height: 12px;
-	background-color: #dbdbdb;
-	position: absolute;
-	left: 0;
-	top: 2px;
-}
-
-.footer li:first-child:before {
-	width: 0;
-}
-
-.footer address {
-	padding-top: 15px;
-}
-
-#button {
-	display: flex;
-	justify-content: center;
-	background-color: gray;
-}
-
-a {
-	text-decoration: none;
-	display: inline-block;
-	padding: 8px 16px;
-}
-
-a:hover {
-	background-color: #ddd;
-	color: black;
-}
-
-
-
 </style>
 </head>
+
 <body>
-	<header id="header">
-	
-		<nav class="navbar">
-			<div class="navbar_logo">
-				<i class="fas fa-paw"></i> <a href="">Fine</a>
-			</div>
-			<!-- 메뉴 -->
-			<ul class="navbar_menu">
+<jsp:include page="/common/header.jsp" />
+	 <section id ="main_section">
+<div class="slideshow-container">
 
-				<li><a href="<%=ctxPath%>/find_Lists.do">찾기</a></li>
-				<li><a href="<%=ctxPath%>/find_adopt_List.do">입양</a></li>
-				<li><a href="<%=ctxPath%>/noticeList.do">공지사항</a></li>
-				<li><a href="<%=ctxPath%>/qnaList.do">Qna</a></li>
-				<li><a href="<%=ctxPath%>/adoptList.do">입양후기</a></li>
-				<li><a href="<%=ctxPath%>/rescueList.do">구조후기</a></li>
-				<li><a href="<%=ctxPath%>/training_list.do">훈련정보</a></li>
-				<li><a href="<%=ctxPath%>/view/quiz/fine_quiz.jsp">퀴즈</a></li>
-				<c:if test="${memberLev eq 2 }">
-				<li><a href="<%=ctxPath%>/fine_find_manage_List.do">등록</a></li>
-				</c:if>
-				<c:if test="${memberLev eq 3 }">
-				<li><a href="<%=ctxPath%>/trmListManager.do">관리자훈련정보</a></li>
-				<li><a href="<%=ctxPath%>/qzmListManager.do">관리자퀴즈</a></li>				
-				<li><a href="<%=ctxPath%>/view/find/Find_manage_UpdateList.jsp">초기화</a></li>
-				<li><a href="<%=ctxPath%>/myPageList.do">회원관리</a></li>
-				</c:if>
-				<c:if test="${not empty sessionID }">
-				<li><a href="<%=ctxPath%>/MyPage.do">마이페이지</a></li>
-				</c:if>
-			</ul>
-			
-			<ul class="memeber_menu">
-			<c:if test="${empty sessionID }">
-				<li><a href="<%=ctxPath%>/view/member/Fine_Member_Login.jsp">로그인</a></li>
-				<li><a href="<%=ctxPath%>/view/member/Finn_Member_Register.jsp">회원가입</a></li>
-			</c:if>
-			<c:if test="${not empty sessionID }">
-				<li>${sessionID}님 환영합니다.</li>
-				<li><a href="<%=ctxPath%>/logout.do">로그아웃</a></li>
-			</c:if>
-			</ul>
-			<!--아이콘  -->
-			<ul class="navbar_icons">
-				<li><i class="fab fa-instagram"></i></li>
-				<li><i class="fab fa-facebook-square"></i></li>
-			</ul>
-			
-		</nav>
-		
-	</header>
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+   <img src="<%=ctxPath%>/upload/main_img/aminal.png" style="width:100%; height: 450px;">
+</div>
 
-	<section id="section">
-	</section>
-	<footer id="footer">
-		<!-- <div class="container">
-            <div class="row"> -->
-		<div class="footer">
-			<ul>
-				<li><a href="#">사이트 도움말</a></li>
-				<li><a href="#">사이트 이용약관</a></li>
-				<li><a href="#">사이트 운영원칙</a></li>
-				<li><a href="#"><strong>개인정보취급방침</strong></a></li>
-				<li><a href="#">책임의 한계와 법적고지</a></li>
-				<li><a href="#">게시중단요청서비스</a></li>
-				<li><a href="#">고객센터</a></li>
-			</ul>
-			<address>
-				Copyright &copy; <a href="#"><strong>Fine</strong></a> All Rights
-				Reserved.
-			</address>
-		</div>
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="<%=ctxPath%>/upload/main_img/quiz.png" style="width:100%; height: 450px;">
+</div>
 
-	</footer>
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+     <img src="<%=ctxPath%>/upload/main_img/aminal.png" style="width:100%; height: 450px;">
 
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+<br>
+<br>
+<hr>
+<br>
+	<c:if test="${not empty count }">
+      <div class="temporary2">최근 한주간 유기된의 유기견의수는 ${count }마리입니다.</div>
+      </c:if>
+      <div class="temporary3">
+        <!--강아지 사진 들고와서 돌릴거임-->
+        <c:if test="${not empty list }">
+        <c:forEach items="${list }" var="mvo" step="1">
+        
+        <div class="dogPic"><a href="<%=ctxPath%>/findDetail.do?no=${mvo.desertionNo}"><img src="${mvo.popfile }" style="width:380px; height: 350px;"></a></div>
+      	</c:forEach>
+      	</c:if>
+      </div> 
+    </section>
+	<!-- FOOTER -->
+	<jsp:include page="/common/footer.jsp" />
+	<script type="text/javascript">
+	var slideIndex = 0;
+	showSlides();
+
+	function showSlides() {
+	    var i;
+	    var slides = document.getElementsByClassName("mySlides");
+	    var dots = document.getElementsByClassName("dot");
+	    for (i = 0; i < slides.length; i++) {
+	       slides[i].style.display = "none";  
+	    }
+	    slideIndex++;
+	    if (slideIndex > slides.length) {slideIndex = 1}    
+	    for (i = 0; i < dots.length; i++) {
+	        dots[i].className = dots[i].className.replace(" active", "");
+	    }
+	    slides[slideIndex-1].style.display = "block";  
+	    dots[slideIndex-1].className += " active";
+	    setTimeout(showSlides, 2000); // Change image every 2 seconds
+	}
+	</script>
 </body>
 </html>

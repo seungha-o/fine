@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fine.adopt.service.AdoptService;
 
-@WebServlet("/adoptDelete")
+@WebServlet("/adoptDelete.do")
 public class Adopt_Delete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

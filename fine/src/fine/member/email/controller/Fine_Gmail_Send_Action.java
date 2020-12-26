@@ -73,7 +73,7 @@ public class Fine_Gmail_Send_Action extends HttpServlet {
 			msg.setContent(content, "text/html; charset=UTF8");
 			Transport.send(msg);
 			out.println("<script>alert('이메일이 발송되었습니다 인증후 로그인해주세요.')</script>");
-			out.println("<script>location.href='"+ctx+"/view/main/index.jsp'</script>");
+			out.println("<script>location.href='"+ctx+"/findHowMany.do'</script>");
 //			response.sendRedirect(ctx+"/index.jsp");
 			
 		} catch (Exception e) {

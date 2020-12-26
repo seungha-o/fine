@@ -11,9 +11,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전체 회원 정보 - 관리자</title>
+<title>전체 회원 정보 - 관리자 Id 찾기</title>
 <script src="https://code.jquery.com/jquery-3.4.0.js"></script>
-</head>
+<!-- icon(fontawesome) -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxPath%>/css/head_foot.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+<!-- CSS -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
 	rel="stylesheet">
@@ -23,7 +38,7 @@
 }
 
 body {
-	max-width: 1467px;
+	max-width: 100%;
 	height: 100%;
 	margin: auto;
 	font-family: 'Source Sans Pro ';
@@ -35,11 +50,34 @@ body {
    height: 100%;
 }  */
 #section {
-	background-color: #fff8e1;
+	background-color: #ffffff;
 	width: 100%;
 	height: 900px;
 }
 
+table {
+   border-collapse: collapse;
+	text-align : center;
+	margin : auto;
+	width : 1200px;
+	position : relative;
+	border-radius: 1em;
+	top : 50px;
+}
+table td {
+  text-align: left;
+  padding: 8px;
+}
+
+	table tr:nth-child(even){background-color: #dcdcdc}
+	table tr:hover :not(th){background-color:#aaaaaa}
+	table a {padding : 0; color : black;}
+	th { height : 50px; border : 1px; }
+
+form { 
+	margin: 0 auto;  
+	padding : 20px; 
+}
 html {
 	background: #f5f7f8;
 	font-family: 'Roboto', sans-serif;
@@ -203,7 +241,7 @@ a {
 	
 }
 a:hover {
-	background-color: #ddd;
+	background-color:#bebebe;
 	color: black;
 }
 
@@ -216,28 +254,15 @@ function FunS() {
 		search.submit();
 	}
 </script>
+</head>
+
 <body>
-	<h1 align="center">FINE Web Project</h1>
-	<header id="header">
-		<nav class="navbar">
-			<div class="navbar_logo">
-				<i class="fas fa-paw"></i> <a href="">Fine</a>
-			</div>
-			<!-- 메뉴 -->
-			<ul class="navbar_menu">
-				<li><a href="">찾기</a></li>
-				<li><a href="">등록</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">커뮤니티</a></li>
-				<li><a href="<%=ctxPath%>/MyPage.do">마이페이지</a></li>
-			</ul>
-			<!--아이콘  -->
-			<ul class="navbar_icons">
-				<li><i class="fab fa-instagram"></i></li>
-				<li><i class="fab fa-facebook-square"></i></li>
-			</ul>
-		</nav>
-	</header>
+	<h1 align="center">FINE </h1>
+	
+<!-- HEADER -->
+	<jsp:include page="/common/header.jsp" />	
+	
+	
 	<section id="section">
 		<form name="SearchForm">
 			<table>
@@ -246,8 +271,8 @@ function FunS() {
 				</tr>
 				<tr>
 					<td>ID 찾기 :</td>
-					<td><input type="text" name="id" id="searchid"></td>
-					<td><button type="button" id="send" onclick="FunS()">검색</button></td>
+					<td><input type="text" name="id" id="searchid"style="height: 30px;width:300px"></td>
+					<td><button type="button" id="send" style="height: 35px; background:  #dcdcdc; font-size: 1em; border-radius: 0.5em; padding: 2px 20px;" onclick="FunS()">검색</button></td>
 				</tr>
 			</table>
 		</form>
@@ -259,7 +284,7 @@ function FunS() {
 						<c:forEach items="${myPageList }" var="vo" varStatus="s">
 				<table border="2">
 					<tr>
-						<td>번 호</td>
+						
 						<td>아이디</td>
 						<td>보호소</td>
 						<td>이 름</td>
@@ -273,11 +298,9 @@ function FunS() {
 						<td>가입 일자</td>
 						<td>생일</td>
 						<td>삭제</td>
-					</tr>
-				
-				
+					</tr>								
 							<tr>
-								<td>${s.count }</td>
+						
 								<td>${vo.id }</td>
 								<td>${vo.care_no }</td>
 								<td>${vo.name }</td>
@@ -292,20 +315,13 @@ function FunS() {
 								<td>${vo.birthday }</td>
 								<td><button type="button"
 										onclick="window.location='<%=ctxPath%>/del.do?id=${vo.id }'">삭제</button></td>
-							</tr>
-								
-				
-							
-					
+							</tr>					
 				</table>
 				</c:forEach>
 					</c:if>
-					<c:if test="${empty myPageList }">
-						
-							<div>가입된 회원이 없습니다.</div>
-						
-					</c:if>
-				
+					<c:if test="${empty myPageList }"><br>				
+							<div style="text-align: center;">가입된 회원이 없습니다.</div>						
+					</c:if>				
 			</form>
 			
 			<%
@@ -323,25 +339,8 @@ function FunS() {
 			</div>
 		</div>
 	</section>
-	<footer id="footer">
-		<!-- <div class="container">
-            <div class="row"> -->
-		<div class="footer">
-			<ul>
-				<li><a href="#">사이트 도움말</a></li>
-				<li><a href="#">사이트 이용약관</a></li>
-				<li><a href="#">사이트 운영원칙</a></li>
-				<li><a href="#"><strong>개인정보취급방침</strong></a></li>
-				<li><a href="#">책임의 한계와 법적고지</a></li>
-				<li><a href="#">게시중단요청서비스</a></li>
-				<li><a href="#">고객센터</a></li>
-			</ul>
-			<address>
-				Copyright &copy; <a href="#"><strong>Fine</strong></a> All Rights
-				Reserved.
-			</address>
-		</div>
-
-	</footer>
+	<!-- FOOTER -->
+	<jsp:include page="/common/footer.jsp" />
+	
 </body>
 </html>

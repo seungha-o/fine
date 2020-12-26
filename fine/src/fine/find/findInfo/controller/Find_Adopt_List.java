@@ -38,12 +38,13 @@ public class Find_Adopt_List extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-	
-		
+		String ctx = request.getContextPath();
+	String id = (String) request.getSession().getAttribute("sessionID");
+		System.out.println(id);
 		if(request.getSession().getAttribute("sessionID") == null) {
 			PrintWriter out = response.getWriter();
 			out.append("<script>alert('로그인 후 이용해 주세요')</script>");
-			out.println("<script>location.href='./view/main/index.jsp'</script>"); 
+			out.println("<script>location.href='"+ctx+"/findHowMany.do'</script>"); 
 		}else {
 			FindService fService = new FindService();
 			List<FindVO> list = new ArrayList<FindVO>();
@@ -93,7 +94,7 @@ public class Find_Adopt_List extends HttpServlet {
 			
 			request.setAttribute("pagecount", pagecount);
 			
-			list = fService.getFindAdoptInfo(startRnum, endRnum);
+			list = fService.getFindAdoptInfo(id, startRnum, endRnum);
 			System.out.println("안녕히세여 :" + list);
 			request.setAttribute("list", list);
 			

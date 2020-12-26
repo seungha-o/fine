@@ -12,12 +12,42 @@
 <style type="text/css">
 </style>
 <script type="text/javascript">
-function register() {
+<%-- function register() {
 	var rgstf = document.registerForm
 	rgstf.action = "<%=ctxPath%>/register.do";
 		rgstf.method = "POST";
 		rgstf.submit();
 	}
+ --%>
+function register() {
+	      	var rgstf = document.registerForm
+	      	
+	      	let idck2 = "사용가능한 id 입니다";
+	      	let phoneck2 = "사용가능한 phone 입니다";
+	      	let emailck2 = "사용가능한 email 입니다";
+	      		
+			var p1 = document.getElementById('pw').value;
+			var p2 = document.getElementById('pwdck').value;
+	      	var idck =  document.getElementById('resultID').innerText;
+	      	console.log(idck+"="+idck2);
+	      	var phoneck =  document.getElementById('resultPHONE').innerText;   // 여기 이름을 왜 그랬데요~ emailck = 
+	      	console.log(phoneck+"="+phoneck2);
+	      	var emailck =  document.getElementById('resultEMAIL').innerText;  // 여기 이름을 왜 그랬데요~ phoneck = 
+	    	console.log(emailck+"="+emailck2);
+	     	if( p1 != p2 ) {
+	        	alert("비밀번호가 일치 하지 않습니다");
+	     	}else if(idck != idck2){
+	     		alert("아이디를 확인해주세요.");
+	     	}else if(phoneck != phoneck2){
+	     		alert("핸드폰번호를 확인해주세요.");
+	     	}else if(emailck != emailck2){
+	     		alert("이메일을 확인해주세요.");
+	      	}else{
+	      		rgstf.action = "<%=ctxPath%>/register.do";
+	      		rgstf.method = "POST";
+	      		rgstf.submit();
+	     	}
+		}
 </script>
 </head>
 <body>
@@ -32,63 +62,60 @@ function register() {
 				<tr>
 					<td>보호소<input name="careCK" type="checkbox" id="a" value="1"></td>
 					<td><input style="display: none" type="text" id="b"
-						name="care_no" placeholder="보호소 번호를입력해주세요."></td>
+						name="care_no" placeholder="보호소 번호를입력해주세요." required="required"></td>
 				</tr>
 				<tr>
 					<td>이름</td>
-					<td><input type="text" name="name"></td>
+					<td><input type="text" name="name" required="required"></td>
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="text" name="pw"></td>
+					<td><input type="text" name="pw" id="pw" required="required"></td>
 				</tr>
 				<tr>
 					<td>비밀번호확인</td>
-					<td><input type="text" name="pwdck"></td>
+					<td><input type="text" name="pwdck" id="pwdck" required="required"></td>
 				</tr>
 				<tr>
 					<td>핸드폰</td>
 					<td><input type="text" name="phone" id="phone"
-						placeholder=' " - "는생략해주세요.'><span id="resultPHONE"></span></td>
+						placeholder=' " - "는생략해주세요.' required="required"><span id="resultPHONE"></span></td>
 				</tr>
 				<tr>
 					<td>이메일</td>
-					<td><input type="text" name="email" id="email"><span
+					<td><input type="text" name="email" id="email" required="required"><span
 						id="resultEMAIL"></span></td>
 				</tr>
 				<tr>
 					<td>주소</td>
-					<td><input type="text" name="address" id="address"></td>
+					<td><input type="text" name="address" id="address" required="required"></td>
 				</tr>
 				<tr>
 					<td>생년월일</td>
 					<td><select name="years" id="years"></select> <select
-						name="months" id="months"></select> <select name="days" id="days"></select>
+						name="months" id="months"></select><select name="days" id="days"></select>
 					</td>
 				</tr>
 				<tr>
 					<td>좋아하는견종</td>
 					<td><select onchange="categoryChange(this)" size="maxwhith">
-						<option value="a">가</option>
-						<option value="b">나</option>
-						<option value="c">다</option>
-						<option value="d">라</option>
-						<option value="e">마</option>
-						<option value="f">바</option>
-						<option value="g">사</option>
-						<option value="h">아</option>
-						<option value="i">자</option>
-						<option value="j">차</option>
-						<option value="k">카</option>
-						<option value="l">타</option>
-						<option value="m">파</option>
-						<option value="n">하</option>
-						<option value="o">기타</option>
-					</select>
-					
-					<select id="dog_kind_no" name="dog_kind_no" size="maxwhith">
-					</select>
-					</td>
+							<option value="a">가</option>
+							<option value="b">나</option>
+							<option value="c">다</option>
+							<option value="d">라</option>
+							<option value="e">마</option>
+							<option value="f">바</option>
+							<option value="g">사</option>
+							<option value="h">아</option>
+							<option value="i">자</option>
+							<option value="j">차</option>
+							<option value="k">카</option>
+							<option value="l">타</option>
+							<option value="m">파</option>
+							<option value="n">하</option>
+							<option value="o">기타</option>
+					</select> <select id="dog_kind_no" name="dog_kind_no" size="maxwhith">
+					</select></td>
 
 				</tr>
 			</table>
@@ -150,27 +177,24 @@ function register() {
 				}
 			});
 		});
-		$('#email')
-				.focusout(
-						"input",
-						function() {
-							var aaa = $("#email").val();
-							var regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-							if (!regex.exec(aaa)) {
-								$("#resultEMAIL").html("이메일 형식에 맞지 않습니다");
-								return;
-							}
-							$("#resultEMAIL").html("이메일 형식 OK");
-							$.ajax({
-								url : "../../EmailCheck",
-								data : {
-									email : $("#email").val()
-								},
-								success : function(result) {
-									$("#resultEMAIL").html(result);
-								}
-							});
-						});
+		$('#email').focusout("input",function() {
+			var aaa = $("#email").val();
+			var regex = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+			if (!regex.exec(aaa)) {
+				$("#resultEMAIL").html("이메일 형식에 맞지 않습니다");
+				return;
+			}
+			$("#resultEMAIL").html("이메일 형식 OK");
+			$.ajax({
+				url : "../../EmailCheck",
+				data : {
+					email : $("#email").val()
+				},
+				success : function(result) {
+					$("#resultEMAIL").html(result);
+				}
+			});
+		});
 		$('#phone').focusout("input", function() {
 			var aaa = $("#phone").val();
 			var regex = /^\d{3}\d{3,4}\d{4}$/;
@@ -189,6 +213,10 @@ function register() {
 				}
 			});
 		});
+		
+		
+		
+		
 		
 		
 		function categoryChange(e) {

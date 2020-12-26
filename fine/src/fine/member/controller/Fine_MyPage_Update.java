@@ -79,7 +79,7 @@ public class Fine_MyPage_Update extends HttpServlet {
 				
 			}else if (result == 0){		//실패
 				out.println("<script>alert('비밀번호를 다시 확인해주세요.');</script>");
-				out.println("<script>location.href='"+ctxPath+"/view/member/myPageView.jsp'</script>");	
+				out.println("<script>location.href=history.back()</script>");	
 			} 		
 			System.out.println("a4");
 			out.flush();

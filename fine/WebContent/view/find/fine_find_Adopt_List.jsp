@@ -7,6 +7,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
+<!-- icon(fontawesome) -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxPath %>/css/head_foot.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+<!-- CSS -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"></script>
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+rel="stylesheet">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99b1d8e23b122c900c17996f24c1ec0e&libraries=services"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -15,14 +36,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+section {
+  width: 80%;
+	margin: 10vh auto;
+		
+}
+
 table {
 	border-collapse: collapse;
+	margin-top: 80px;
 }
 
 table tr, th, td {
-	border: 1px solid black;
+	
 	text-align: center;
 	padding: 5px;
+}
+th{
+border-bottom: 1px solid; 
 }
 </style>
  <script type="text/javascript">
@@ -37,105 +68,131 @@ table tr, th, td {
 	</script> 
 </head>
 <body>
-<form name="findDog">
-		<label>시/도</label><br> 	
-						<select name="sido" id="sido" onchange="categorySidoChange(this)">
-						<option value="강원도">강원도</option>
-						<option value="경기도">경기도</option>
-						<option value="경상남도">경상남도</option>
-						<option value="경상북도">경상북도</option>
-						<option value="광주광역시">광주광역시</option>
-						<option value="대구광역시">대구광역시</option>
-						<option value="대전광역시">대전광역시</option>
-						<option value="부산광역시">부산광역시</option>
-						<option value="서울특별시">서울특별시</option>
-						<option value="세종특별자치시">세종특별자치시</option>
-						<option value="울산광역시">울산광역시</option>
-						<option value="인천광역시">인천광역시</option>
-						<option value="전라남도">전라남도</option>
-						<option value="전라북도">전라북도</option>
-						<option value="제주특별자치도">제주특별자치도</option>
-						<option value="충청남도">충청남도</option>
-						<option value="충청북도">충청북도</option>
-					</select>
-					<br> 
-		<label>시/군/구</label>
-		<br><select id="sigungu" name="sigungu">
-
-		</select><br> 
-		<label>견종</label><br>
-<select onchange="categoryChange(this)">
-  <option value="a">가</option>
-  <option value="b">나</option>
-  <option value="c">다</option>
-  <option value="d">라</option>
-  <option value="e">마</option>
-  <option value="f">바</option>
-  <option value="g">사</option>
-  <option value="h">아</option>
-  <option value="i">자</option>
-  <option value="j">차</option>
-  <option value="k">카</option>
-  <option value="l">타</option>
-  <option value="m">파</option>
-  <option value="n">하</option>
-  <option value="o">기타</option>
-</select>
- 
-<select id="dog_kind" name="dogKind">
-</select><br>
-
-
-<button type="submit" onclick="goFindSearch()">검색</button>
-
-	</form>
-<div id="map" style="width:800px;height:500px;"></div>
+<jsp:include page="/common/header.jsp" />
+<section>
+	<div id="findDogInfo" style="display: flex; justify-content: space-around; flex-wrap: wrap;">
 	
-	<table border="1">
-		<thead>
-			<tr>
-				<th>유기견사진</th>
-				<th>보호소</th>
-				<th>보호소주소</th>
-				<th>발견장소</th>
-				<th>발견날짜</th>
-				<th>성별</th>
-				<th>중성화여부</th>
-			</tr>
-		</thead>
-		
-		<tbody>
-		<c:if test="${not empty list }">
-	<c:forEach items="${list }" var="mvo" varStatus="s">
-		<tr>
-		<td><img src="${mvo.filename }"></td>
-		<td class = "careName">${mvo.careNm }</td>
-		<td class = "address">${mvo.careAddr }</td>
-		<td>${mvo.happenPlace }</td>
-		<td>${mvo.happenDt }</td>
-		<td>${mvo.sexCd }</td>
-		<td>${mvo.neuterYn }</td>
-		<td> <button type="button" id="BtnDetail" onclick="window.location='<%=ctxPath%>/findAdoptDetail.do?no=${mvo.desertionNo}'">상세보기</button></td>
-		</tr>
+	<div id="mapSection" style="width: 700px; height: 800px;">
 	
-	</c:forEach>
-	</c:if>
-	<c:if test="${empty list }">
-	<h1>찾는 결과가 없습니다. 기재사항 모두 입력해 주세요</h1>
-	</c:if>
-		</tbody>
-	</table>
-	<%
-		int count = (int)request.getAttribute("count");
-		int currentPage = (int)request.getAttribute("currentPage");
-		int endPage = (int)request.getAttribute("endPage");
-		int startPage = (int)request.getAttribute("startPage");
-		int pagecount = (int)request.getAttribute("pagecount");
-			if (count > 0) {
+	<div id="map" style="width: 100%; height: 500px;"></div>
+	<div style="margin-top: 10px"><a href="#"><img src = "./upload/images/banner.jpg" alt="asd" width="700px" height="230px"></a></div>
+	</div>
+	
+		<div id = "findDogFrom">
+		<form name="findDog">
+			<h2>시/도</h2><br> <select name="sido" id="sido"
+				onchange="categorySidoChange(this)"
+				style="width: 50%; height: 50px; border-radius: 30px; font-size: 18px; font-weight: bold; text-align-last:center;">
+				<option value="강원도">강원도</option>
+				<option value="경기도">경기도</option>
+				<option value="경상남도">경상남도</option>
+				<option value="경상북도">경상북도</option>
+				<option value="광주광역시">광주광역시</option>
+				<option value="대구광역시">대구광역시</option>
+				<option value="대전광역시">대전광역시</option>
+				<option value="부산광역시">부산광역시</option>
+				<option value="서울특별시">서울특별시</option>
+				<option value="세종특별자치시">세종특별자치시</option>
+				<option value="울산광역시">울산광역시</option>
+				<option value="인천광역시">인천광역시</option>
+				<option value="전라남도">전라남도</option>
+				<option value="전라북도">전라북도</option>
+				<option value="제주특별자치도">제주특별자치도</option>
+				<option value="충청남도">충청남도</option>
+				<option value="충청북도">충청북도</option>
+			</select> <br><br> <h2>시/군/구</h2> <br>
+			<select id="sigungu" name="sigungu"
+				style="width: 630px; height: 50px; border-radius: 30px; font-size: 18px; font-weight: bold;text-align-last:center;">
 			
-				if (currentPage > 1 || endPage < pagecount) {
+			</select><br><br> <h2>품종</h2><br> <select
+				onchange="categoryChange(this)"
+				style="width: 50%; height: 50px; border-radius: 30px; font-size: 18px; font-weight: bold;text-align-last:center;">
+				
+				<option value="as">선택해주세요</option>
+				<option value="a">초성이 '가' 인가요?</option>
+				<option value="b">초성이 '나' 인가요?</option>
+				<option value="c">초성이 '다' 인가요?</option>
+				<option value="d">초성이 '라' 인가요?</option>
+				<option value="e">초성이 '마' 인가요?</option>
+				<option value="f">초성이 '바' 인가요?</option>
+				<option value="g">초성이 '사' 인가요?</option>
+				<option value="h">초성이 '아' 인가요?</option>
+				<option value="i">초성이 '자' 인가요?</option>
+				<option value="j">초성이 '차' 인가요?</option>
+				<option value="k">초성이 '카' 인가요?</option>
+				<option value="l">초성이 '타' 인가요?</option>
+				<option value="m">초성이 '파' 인가요?</option>
+				<option value="n">초성이 '하' 인가요?</option>
+				<option value="o">기타</option>
+			</select><br><br> <select id="dog_kind" name="dogKind"
+				style="width: 630px; height: 50px; border-radius: 30px; font-size: 18px; font-weight: bold;text-align-last:center;">
+			</select><br><br><br> 
+			
+
+			<button type="submit" onclick="goFindSearch()" style="width: 100%; height: 80px;">검색</button>
+
+		</form>
+		</div>
+		
+			
+		</div>
+			<hr>
+			
+	
+		<table>
+			<thead>
+				<tr>
+					<th>유기견사진</th>
+					<th>보호소</th>
+					<th>보호소주소</th>
+					<th>발견장소</th>
+					<th>발견날짜</th>
+					<th>성별</th>
+					<th>중성화여부</th>
+					<th></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<c:if test="${not empty list }">
+					<c:forEach items="${list }" var="mvo" varStatus="s">
+						
+						<tr style = "cursor:pointer;"  onclick="window.location='<%=ctxPath%>/findAdoptDetail.do?no=${mvo.desertionNo}'">
+							
+							<td><img src="${mvo.filename }" width="200px" height="200px"></td>
+							<td class="careName">${mvo.careNm }</td>
+							<td class="address">${mvo.careAddr }</td>
+							<td>${mvo.happenPlace }</td>
+							<td>${mvo.happenDt }</td>
+							<td>${mvo.sexCd }</td>
+							<td>${mvo.neuterYn }</td>
+							<td>
+								
+							</td>
+						
+						</tr>
+
+					</c:forEach>
+				</c:if>
+				
+			</tbody>
+		<c:if test="${empty list }">
+					<h1 style="text-align: center; margin-top: 80px">찾는 결과가 없습니다. 기재사항 모두 입력해 주세요</h1>
+		</c:if>
+		</table>
+		<hr>
+		<div id ="jhb-navigator" style="width: 100%; text-align: center;" >
+		<%
+			int count = (int) request.getAttribute("count");
+		int currentPage = (int) request.getAttribute("currentPage");
+		int endPage = (int) request.getAttribute("endPage");
+		int startPage = (int) request.getAttribute("startPage");
+		int pagecount = (int) request.getAttribute("pagecount");
+		if (count > 0) {
+
+			if (currentPage > 1 || endPage < pagecount) {
 				if (currentPage == 1) {
-					%>
+		%>
 					[<a style="display=none" href="./find_adopt_List.do?pageNum=<%=currentPage - 1%>">이전</a>]
 					<%
 				} else {
@@ -176,6 +233,8 @@ table tr, th, td {
 		}
 
 		%>
+			</div>
+	</section>
 <script type="text/javascript">
 function categorySidoChange(e) {
 	var good_a = ["춘천시",
@@ -713,6 +772,7 @@ var careName = document.getElementsByClassName('careName');
 
 		};    
 </script>
+<jsp:include page="/common/footer.jsp" />	
 </body>
 
 </html>

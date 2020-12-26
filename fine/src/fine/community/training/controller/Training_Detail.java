@@ -33,7 +33,7 @@ public class Training_Detail extends HttpServlet {
 		System.out.println(list);
 		request.setAttribute("list", list);
 		//response.sendRedirect("../training/fine_training_Dtail.jsp?trn_no="+no);
-		RequestDispatcher disp = request.getRequestDispatcher("/view/training/fine_training_Detail.jsp?no="+no);
+		RequestDispatcher disp = request.getRequestDispatcher("./view/training/fine_training_Detail.jsp?no="+no);
 		disp.forward(request, response);
 	}
 

@@ -62,11 +62,11 @@ public class Fine_MyPage_Delete extends HttpServlet {
 			System.out.println("delete ok : "+deleteResult);
 			if(deleteResult == 1) {
 				out.println("<script>alert('탈퇴를 완료했습니다.');</script>");
-				out.println("<script>location.href='"+ctxPath+"/view/main/index.jsp'</script>");
+				out.println("<script>location.href='"+ctxPath+"/findHowMany.do'</script>");
 				request.getSession().invalidate();//로그아웃해줌
 			}else {
 				out.println("<script>alert('탈퇴를 실패했습니다.');</script>");
-				out.println("<script>location.href='"+ctxPath+"/view/main/index.jsp'</script>");
+				out.println("<script>location.href='"+ctxPath+"/findHowMany.do'</script>");
 			}
 		}else {
 			System.out.println("a5:" + result );

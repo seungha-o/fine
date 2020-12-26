@@ -50,7 +50,5 @@ public class noticeFixCount extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-
-	
 	}
 }

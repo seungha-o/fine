@@ -22,11 +22,13 @@ public class Adopt_DetailToUpdate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String id = (String) request.getSession().getAttribute("sessionID");
 			int adopt_no = Integer.parseInt(request.getParameter("adopt_no"));
 			AdoptService qnaService = new AdoptService();
 			AdoptVO vo = qnaService.adoptDetail(adopt_no);
 			if(vo != null) {
 				request.setAttribute("updateList", vo);
+				request.setAttribute("id", id);
 				RequestDispatcher disp = request.getRequestDispatcher("/view/adopt/AdoptUpdate.jsp");
 				disp.forward(request, response);
 			} else {

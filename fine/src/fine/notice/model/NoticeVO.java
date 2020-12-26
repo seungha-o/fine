@@ -1,5 +1,6 @@
 package fine.notice.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class NoticeVO {
 	private int notice_count;
 	private String notice_title;
 	private String notice_contents;
-	private Timestamp notice_write_date;
+	private Date notice_write_date;
 	private List<String> notice_img;
 	private int pin;
 	
@@ -62,10 +63,10 @@ public class NoticeVO {
 	public void setNotice_contents(String notice_contents) {
 		this.notice_contents = notice_contents;
 	}
-	public Timestamp getNotice_write_date() {
+	public Date getNotice_write_date() {
 		return notice_write_date;
 	}
-	public void setNotice_write_date(Timestamp notice_write_date) {
+	public void setNotice_write_date(Date notice_write_date) {
 		this.notice_write_date = notice_write_date;
 	}
 	public List<String> getNotice_img() {

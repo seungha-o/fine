@@ -22,11 +22,13 @@ public class Rescue_DetailToUpdate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String id = (String) request.getSession().getAttribute("sessionID");
 			int rec_no = Integer.parseInt(request.getParameter("rec_no"));
 			RescueService qnaService = new RescueService();
 			RescueVO vo = qnaService.rescueDetail(rec_no);
 			if(vo != null) {
 				request.setAttribute("updateList", vo);
+				request.setAttribute("id", id);
 				RequestDispatcher disp = request.getRequestDispatcher("./view/rescue/RescueUpdate.jsp");
 				disp.forward(request, response);
 			} else {

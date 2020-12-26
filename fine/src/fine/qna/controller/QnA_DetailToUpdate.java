@@ -22,11 +22,15 @@ public class QnA_DetailToUpdate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+		
+//			String level = (String) request.getSession().getAttribute("sessionID");
 			int strQna_no = Integer.parseInt(request.getParameter("qna_no"));
 			QnAService qnaService = new QnAService();
 			QnAVO vo = qnaService.qnaDetail(strQna_no);
 			if(vo != null) {
+				String id = (String) request.getSession().getAttribute("sessionID");
 				request.setAttribute("updateList", vo);
+				request.setAttribute("id", id);
 				RequestDispatcher disp = request.getRequestDispatcher("./view/qna/QnAUpdate.jsp");
 				disp.forward(request, response);
 			} else {

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
@@ -54,7 +55,8 @@ public class noticeWrite extends HttpServlet {
 
 	private void execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		String id = (String) request.getSession().getAttribute("sessionID");
+		System.out.println(id);
 		NoticeService nService = new NoticeService();
 		String folderPath = getServletContext().getRealPath("/files");
 		MultipartRequest mReq = new MultipartRequest(request, folderPath, 5 * 1024 * 1024, "utf-8",
@@ -70,7 +72,7 @@ public class noticeWrite extends HttpServlet {
 			String originfilename = mReq.getOriginalFileName(name);
 			saveFiles.add(filename);
 			originFiles.add(originfilename);
-		}
+		}	
 		String title = mReq.getParameter("notice_title");
 		String contents = mReq.getParameter("notice_contents");
 		int pin = 0;
@@ -84,7 +86,9 @@ public class noticeWrite extends HttpServlet {
 			vo.setNotice_contents(contents);
 			vo.setNotice_img(saveFiles);
 			vo.setPin(pin);
-			int result = nService.writeNotice(title, contents, saveFiles, pin);
+			vo.setId(id);
+			
+			int result = nService.writeNotice(id, title, contents, saveFiles, pin);
 		
 			if (result < 0) {
 				response.sendRedirect("<script>alert('오류가 발생했습니다.');</script>");

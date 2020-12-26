@@ -24,6 +24,9 @@ public class QnA_Search extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		QnAService qnaService = new QnAService();
 		String searchWord = request.getParameter("title");
 		int pageSize = 10; // 페이지 당 글 수
@@ -61,7 +64,7 @@ public class QnA_Search extends HttpServlet {
 			System.out.println(startRnum + " - " + endRnum);
 			List<QnAVO> searchList = QnAService.qnaSearch(searchWord, startRnum, endRnum);
 			// 보내주기
-			if (searchList != null) {
+			
 				request.setAttribute("searchStartPage", startPage);
 				request.setAttribute("searchEndPage", endPage);
 				request.setAttribute("searchPageNum", currentPage);
@@ -70,10 +73,9 @@ public class QnA_Search extends HttpServlet {
 				request.setAttribute("searchList", searchList);
 				request.setAttribute("pagecount", pageCount);
 
-				System.out.println(searchList.size() + ", " + startPage + ", " + endPage);
 				RequestDispatcher disp = request.getRequestDispatcher("./view/qna/QnASearchResult.jsp?pageNum="+currentPage+"&title = "+searchWord);
 				disp.forward(request, response);					// ?pageNum="+currentPage+"&title = "+searchWord
-			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

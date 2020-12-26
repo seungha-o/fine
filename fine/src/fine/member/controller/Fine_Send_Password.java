@@ -82,7 +82,7 @@ public class Fine_Send_Password extends HttpServlet {
 					out.println("<script>alert('이메일에 임시비밀번호가 발송되었습니다.')</script>");
 					Service services = new Service();
 					int result = services.changePw(randpwd,to);
-					out.println("<script>location.href='"+ctx+"/view/main/index.jsp'</script>");
+					out.println("<script>location.href='"+ctx+"/findHowMany.do'</script>");
 					
 				} catch (Exception e) {
 					out.println("<script>");

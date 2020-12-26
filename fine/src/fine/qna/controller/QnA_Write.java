@@ -34,7 +34,8 @@ public class QnA_Write extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+//		String id = request.getParameter("id"); // 그냥 보내주면 id랑 level값을 list.jsp로 못갖고감.
+//		String level = request.getParameter("level");
 		QnAService qnaService = new QnAService();
 		String folderPath = getServletContext().getRealPath("/files");
 		MultipartRequest mReq = new MultipartRequest(request, folderPath, 5 * 1024 * 1024, "utf-8",
@@ -57,19 +58,28 @@ public class QnA_Write extends HttpServlet {
 				System.out.println("업로드 실패");
 		}
 		
-		String id = mReq.getParameter("id");
+		String id = (String) request.getSession().getAttribute("sessionID");
+		String level = mReq.getParameter("level");
 		String title = mReq.getParameter("title");
 		String content = mReq.getParameter("content");
 		String pass = mReq.getParameter("pass");
+		String[] passChk = mReq.getParameterValues("passchk");
+		int passState = 0;
+		if(passChk == null) {
+			passState = 0;
+		}else {
+			passState = 1;	
+		}
 		try {
 			if (title != null && content != null) {
+				System.out.println("비밀글여부"+passState);
 				QnAVO vo = new QnAVO();
 				vo.setId(id);
 				vo.setQna_title(title);
 				vo.setQna_contents(content);
 				vo.setQna_pass(pass);
 				vo.setQna_img(saveFiles);
-				int result = qnaService.qnaWrite(id, title, content, pass, saveFiles);
+				int result = qnaService.qnaWrite(id, title, content, pass, saveFiles, passState);
 				if (result < 0) {
 					response.sendRedirect("<script>alert('오류가 발생했습니다.');</script>");
 				}
@@ -77,6 +87,8 @@ public class QnA_Write extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		request.setAttribute("id", id);
+		request.setAttribute("level", level);
 		RequestDispatcher disp = request.getRequestDispatcher("qnaList.do");
 		disp.forward(request, response);
 //		response.sendRedirect("./qnaList.do");

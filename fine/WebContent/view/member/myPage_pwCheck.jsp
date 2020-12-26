@@ -10,8 +10,21 @@
 <head>
 <meta charset="UTF-8">
 <title>정보 수정시 비밀번호 체크</title>
-<link rel="stylesheet" href="css/myStyle.css?after" />
-<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
+<!-- <link rel="stylesheet" href="css/myStyle.css?after" /> --> 
+<!-- icon(fontawesome) -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxPath%>/css/index.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
 	rel="stylesheet">
@@ -30,7 +43,7 @@ function pwCheck() {
 }
 
 body {
-   max-width: 1200px;
+   max-width: 100%;
    height: 100%;
    margin: auto;
    font-family: 'Source Sans Pro ';
@@ -43,7 +56,7 @@ body {
 }  */ 
 
 #section {
-   background-color: #fff8e1;
+   background-color:  #f5f7f8;
    width: 100%;
    height: 100%;
 }
@@ -192,9 +205,9 @@ article p {
 }
 
  #section {
-    background-color: #afc2c6;  
-    width: 1200px;
-    height: 450px;
+    background-color: #f5f7f;  
+    width: 100%;
+    height: 550px;
      }
   .a1 {display :none; }
 
@@ -208,14 +221,15 @@ article p {
 		#two:nth-of-type(2) ~div:nth-of-type(2) {display:none;}
 		#two:nth-of-type(2):checked ~div:nth-of-type(2) {display:block;}
 
-		#one:nth-of-type(1):checked ~section.buttons >label:nth-of-type(1) {
-			background:#7bb8b3;
-			color:#708350;
-		}
-		#two:nth-of-type(2):checked ~section.buttons >label:nth-of-type(2){
-			background:#7bb8b3;
-			color:#708350;
-		}
+	#one:nth-of-type(1):checked ~section.buttons>label:nth-of-type(1) {
+	background: #8c8c8c;
+	color: #787878;
+}
+
+	#two:nth-of-type(2):checked ~section.buttons>label:nth-of-type(2) {
+	background: #8c8c8c;
+	color: #787878;
+}
 		section.buttons {
             overflow:hidden;
             font-size: 20px;}
@@ -236,7 +250,7 @@ article p {
             font-weight: bold;
 		}
 		 .pwch {
-            background:#7bb8b3;
+            background:#aaaaaa;
             height: 40px;
             padding-top:10px;
             padding-left:40px;
@@ -344,27 +358,12 @@ a {
 </head>
 <body>
 
-<header id="header">
-        <nav class="navbar">
-           <div class="navbar_logo">
-              <i class="fas fa-paw"></i> <a href="">Fine</a>
-           </div>
-           <!-- 메뉴 -->
-           <ul class="navbar_menu">
-              <li><a href="">찾기</a></li>
-              <li><a href="">등록</a></li>
-              <li><a href="">게시판</a></li>
-              <li><a href="">커뮤니티</a></li>
-              <li><a href="<%=ctxPath%>/MyPage.do">마이페이지</a></li>
-           </ul>
-           <!--아이콘  -->
-           <ul class="navbar_icons">
-              <li><i class="fab fa-instagram"></i></li>
-              <li><i class="fab fa-facebook-square"></i></li>
-           </ul>
-        </nav>
-     </header>
+<!-- HEADER -->
+	<jsp:include page="/common/header.jsp" />
+	
+<!-- SECTION -->     
 <section id="section">
+
  <div class="pwch">                
      <strong padding-left="100px">회원정보 수정시 비밀 번호 체크</strong>
 		<form name="pwCheckform" >
@@ -382,7 +381,7 @@ a {
 					</tr>
 					<tr>
 						<td colspan="2">
-				   		<button style="height: 35px; background:#f8e4c6;font-size:1em; border-radius:0.5em; padding:5px 20px;" onclick="pwCheck()">확인</button>
+				   		<button style="height: 35px; background:#d2d2d2;font-size:1em; border-radius:0.5em; padding:5px 20px;" onclick="pwCheck()">확인</button>
 				   		</td>
 				   </tr>
 				</table>
@@ -390,21 +389,9 @@ a {
  	 </div>
   </section> 
             
+<!-- FOOTER -->
+	<jsp:include page="/common/footer.jsp" />
 
 
-<div class="footer">
-    <ul>
-       <li><a class="link" href="#">사이트 도움말</a></li>
-       <li><a class="link" href="#">사이트 이용약관</a></li>
-       <li><a class="link" href="#">사이트 운영원칙</a></li>
-       <li><a class="link" href="#"><strong>개인정보취급방침</strong></a></li>
-       <li><a class="link" href="#">책임의 한계와 법적고지</a></li>
-       <li><a class="link" href="#">게시중단요청서비스</a></li>
-       <li><a class="link" href="#">고객센터</a></li>
-    </ul>
-    <address>
-       Copyright &copy; <a href="#"><strong>Fine</strong></a> All Rights Reserved.
-    </address>
- </div>
 </body>
 </html>

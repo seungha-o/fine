@@ -19,18 +19,27 @@ public class Adopt_Reply extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		String adopt_title = request.getParameter("title");
-		String adopt_content = request.getParameter("content");
-		String ref = request.getParameter("ref");
+		String id = (String) request.getSession().getAttribute("sessionID");
+		String adopt_title = "댓글입니다.";
+		String adopt_content = request.getParameter("comments");
+		String ref = request.getParameter("adopt_no");
 		String ref_step = request.getParameter("ref_step");
+		if(ref_step == null) {
+		ref_step = request.getParameter("ref_sub_step");
+		}
+		
 		String ref_level = request.getParameter("ref_level");
+		System.out.println("asdasdasdasasd"+ref_level);
+		if(ref_level == null) {
+			ref_level = request.getParameter("ref_sub_level");
+			System.out.println("asdasdasdasasd"+ref_level);
+		}
 		
 		AdoptService adoptService = new AdoptService();
 		int result = adoptService.reply(id, adopt_title, adopt_content, ref, ref_step, ref_level);
 		
 		if (result == 1) {
-			response.sendRedirect("./adoptList.do");
+			response.sendRedirect("./adoptDetail.do?adopt_no="+ref);
 		} else {
 			System.out.println("Fail");
 		}

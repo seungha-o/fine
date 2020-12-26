@@ -45,13 +45,18 @@ public class noticeList extends HttpServlet {
 	private void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
+	
+	request.getSession().getAttribute("memberLev");
+	request.getSession().getAttribute("sessionID");
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	NoticeService nService = new NoticeService();
-		int pageSize = 15; // 페이지 당 글 수
-		int pageBlock = 15; // 페이지 링크 수
+	
+		int pageSize = 10; // 페이지 당 글 수
+		int pageBlock = 10; // 페이지 링크 수
 		try {			
 				//총 글 개수 
 			int nCount = nService.getBoardCount();
+			System.out.println(nCount);
 ///			System.out.println(nCount);
 				//페이지 수 초기화
 			String pageNum = request.getParameter("pageNum");
@@ -84,6 +89,9 @@ public class noticeList extends HttpServlet {
 //			System.out.println(startRnum +  " - "+ endRnum );
 			List<NoticeVO> list = nService.getBoardPage(startRnum , endRnum);  /*변경 : 메소드*/
 				//보내주기 
+			System.out.println(startPage);
+			System.out.println(endPage);
+		
 			request.setAttribute("startPage", startPage);  
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("PageNum", currentPage);

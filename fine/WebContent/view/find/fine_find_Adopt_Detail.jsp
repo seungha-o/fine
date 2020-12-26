@@ -9,113 +9,133 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	
+<!-- icon(fontawesome) -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxpath %>/css/head_foot.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+<!-- CSS -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"></script>
+<link
+	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+rel="stylesheet">
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=99b1d8e23b122c900c17996f24c1ec0e&libraries=services"></script>
+	
 <style>
-table {
-	border-collapse: collapse;
-}
-
-table tr, th, td {
-	border: 1px solid black;
-	text-align: center;
-	padding: 5px;
-}
+section {
+  width: 80%;
+	margin: 10vh auto;
+		}
+		
+		h3{
+		display: inline;
+		}
 </style>
 </head>
 <body>
-	<div id="map" style="width: 600px; height: 500px;"></div>
-	<form>
 
-		<c:if test="${not empty list}">
-			<c:forEach items="${ list }" var="mvo" varStatus="s">
-				<table>
+<jsp:include page="/common/header.jsp" />
 
-					<tr>
-						<td colspan="2"><img src="${mvo.popfile}"></td>
-					</tr>
-					<tr>
-						<td>나이</td>
-						<td>${mvo.age}</td>
-					</tr>
-					<tr>
-						<td>보호중인 시설</td>
-						<td id="careName">${mvo.careNm}</td>
+	<c:if test="${not empty list}">
+<c:forEach items="${ list }" var="mvo" varStatus="s">
+<section>
+<form>				
+                 	<div id = jhb-content style="display: flex; flex-wrap: wrap;justify-content:space-around; ">
+					<div id=dogImg>
+					<img src="${mvo.popfile}" width="700px" height="800px">
+					</div>
+					<div id=dogInfo>
+                        <h3>발견위치 : </h3> ${mvo.happenPlace}<br><br>
+              
+                    
+              
+                         <h3>발견날자 : </h3>${mvo.happenDt}<br><br>
+              
+                    
+                       <h3>보호중인 시설 : </h3>
+                        <p id="careName" style="display: inline;">${mvo.careNm}</p><br><br>
+              
+                   
+                         <h3>보호시설 주소 : </h3>
+                        <p id="address" style="display: inline;">${mvo.careAddr}</p><br><br>
+              
+                    
+                         <h3>보호시설 번호 : </h3>${mvo.careTel}<br><br>
+                         <h3>견종 : </h3>${mvo.kindCd}<br><br>
+              
+          					 <h3>나이  : </h3>${mvo.age}<br><br>
+                    
+                    
+                         <h3>색깔  : </h3>${mvo.colorCd}<br><br>
+              
+                  
+                         <h3>성별 : </h3>${mvo.sexCd}<br><br>
+              
 
-					</tr>
-					<tr>
-						<td>보호시설 주소</td>
-						<td id="address">${mvo.careAddr}</td>
-
-					</tr>
-					<tr>
-						<td>보호시설 번호</td>
-						<td>${mvo.careTel}</td>
-
-					</tr>
-					<tr>
-						<td>색갈</td>
-						<td>${mvo.colorCd}</td>
-
-					</tr>
-					<tr>
-						<td>성별</td>
-						<td>${mvo.sexCd}</td>
-
-					</tr>
-					<tr>
-						<td>중성화 유무</td>
-						<td>${mvo.neuterYn}</td>
-					</tr>
-					<tr>
-						<td>몸무게</td>
-						<td>${mvo.weight}</td>
-					</tr>
-					<tr>
-						<td>특이사항</td>
-						<td>${mvo.specialMark}</td>
-					</tr>
-
-
-					<tr>
-
-						<td colspan="2">
-							<button type="button" id="BtnGoList"
-								onclick="window.location='<%=ctxpath%>/find_adopt_List.do'">글목록</button>
-							<c:choose>
-
-
-
+                         <h3>중성화 유무 : </h3> ${mvo.neuterYn}<br><br>
+                    
+                         <h3>몸무게 : </h3> ${mvo.weight}<br><br>
+                    
+                         <h3>특이사항 : </h3> ${mvo.specialMark}<br><br>
+                         </div>
+                         </div>
+                   
+                    
+                    <div style="width:100%; margin-bottom: 50px">
+					<div id="map" style="width:100%;height:500px;"></div>
+        			</div>
+        			<div style="display: inline; text-align:right; margin-bottom: 50px; " >
+        			<c:choose>
 								<c:when test="${mvo.careNm eq '현봉보호소'}">
-								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/find_adopt_List.do'">입양하러가기</button>
+								
+								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/ReservationForm.do?dogNum=${mvo.desertionNo }'"style="width: 150px; height: 50px;">입양하러가기</button>
+   							
    								</c:when>
    								<c:when test="${mvo.careNm eq '지성보호소'}">
-								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/find_adopt_List.do'">입양하러가기</button>
+								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/ReservationForm.do?dogNum=${mvo.desertionNo }'"style="width: 150px; height: 50px;">입양하러가기</button>
    								</c:when>
    								<c:when test="${mvo.careNm eq '승하보호소'}">
-								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/find_adopt_List.do'">입양하러가기</button>
+								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/ReservationForm.do?dogNum=${mvo.desertionNo }'"style="width: 150px; height: 50px;">입양하러가기</button>
    								</c:when>
    								<c:when test="${mvo.careNm eq '서현보호소'}">
-								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/find_adopt_List.do'">입양하러가기</button>
+								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/ReservationForm.do?dogNum=${mvo.desertionNo }'"style="width: 150px; height: 50px;">입양하러가기</button>
    								</c:when>
    								<c:when test="${mvo.careNm eq '경배보호소'}">
-								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/find_adopt_List.do'">입양하러가기</button>
+								<button type="button" id="BtnGoList"onclick="window.location='<%=ctxpath%>/ReservationForm.do?dogNum=${mvo.desertionNo }'"style="width: 150px; height: 50px;">입양하러가기</button>
    								</c:when>
    								<c:when test="${mvo.careNm eq '주형보호소'}">
-								<button type="button" id="BtnGoList" onclick="window.location='<%=ctxpath%>/find_adopt_List.do'">입양하러가기</button>
+								<button type="button" id="BtnGoList" onclick="window.location='<%=ctxpath%>/findReservation.do?dogNum=${mvo.desertionNo }'"style="width: 150px; height: 50px;">입양하러가기</button>
    								</c:when>
 								<c:otherwise>
-								<p>저희와 제휴맺지 않은 보호소입니다. 직접 유선문의 부탁드립니다.</p>
+								
+								<div style="width: 100%; text-align: center;">
+								<h4>저희와 제휴맺지 않은 보호소입니다. 직접 유선문의 부탁드립니다.</h4>
+    							</div>
     							</c:otherwise>
 
 
 							</c:choose>
-						</td>
-					</tr>
-				</table>
+							<button type="button" id="BtnGoList"
+								onclick="window.location='<%=ctxpath%>/find_adopt_List.do'" style="width: 150px; height: 50px; margin-left: 20px;">글목록</button>
+						</div>
+						<div style="margin-bottom: 50px;"></div>
+							
+				</form>
+				</section>
 			</c:forEach>
 		</c:if>
-	</form>
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		mapOption = {
@@ -169,5 +189,6 @@ table tr, th, td {
 							}
 						});
 	</script>
+	<jsp:include page="/common/footer.jsp" />	
 </body>
 </html>

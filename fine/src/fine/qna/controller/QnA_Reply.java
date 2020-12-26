@@ -19,19 +19,31 @@ public class QnA_Reply extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		String qna_title = request.getParameter("title");
-		String qna_content = request.getParameter("content");
-		String pass = request.getParameter("pass");
-		String ref = request.getParameter("ref");
+		String id = (String) request.getSession().getAttribute("sessionID");
+		
+		String qna_title = "댓글입니다.";
+		String qna_content = request.getParameter("comments");
+		String ref = request.getParameter("qna_no");
 		String ref_step = request.getParameter("ref_step");
+		if(ref_step == null) {
+		ref_step = request.getParameter("ref_sub_step");
+		}
+		
 		String ref_level = request.getParameter("ref_level");
+		System.out.println("asdasdasdasasd"+ref_level);
+		if(ref_level == null) {
+			ref_level = request.getParameter("ref_sub_level");
+			System.out.println("asdasdasdasasd"+ref_level);
+		}
+		
+	
+		
 		
 		QnAService qnaService = new QnAService();
-		int result = qnaService.reply(id, qna_title, qna_content, pass, ref, ref_step, ref_level);
+		int result = qnaService.reply(id, qna_title, qna_content, ref, ref_step, ref_level);
 		
 		if (result == 1) {
-			response.sendRedirect("./qnaList.do");
+			response.sendRedirect("./qnaDetail.do?qna_no="+ref);
 		} else {
 			System.out.println("Fail");
 		}

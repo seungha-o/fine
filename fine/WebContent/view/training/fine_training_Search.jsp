@@ -3,74 +3,143 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%
-	String ctxpath = request.getContextPath();
+	String ctxPath = request.getContextPath();
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insert title here</title>
+<!-- icon(fontawesome) -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxPath %>/css/head_foot.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+	
+<!-- CSS -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
 	rel="stylesheet">
-<script src="../js/jquery-3.5.1.js"></script>
-<title>Document</title>
+	
 <style>
-table {
-	border-collapse: collapse;
+
+
+/* SECTION */
+.h_title {
+	margin-bottom: 6vh;
+	font-family: 'Jua', sans-serif;
 }
 
-table tr, th, td {
-	border: 1px solid black;
+#trainingSearchFrm {
 	text-align: center;
-	padding: 5px;
+	margin: 10vh 0;
 }
+
+#trnSearchTable {
+	font-family: 'Jua', sans-serif;
+  	border-collapse: collapse;
+  	width:50%;
+	position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+    border: 2px solid #A4A4A4;
+}
+#trnSearchTable td, #trnSearchTable th {
+	padding: 30px;
+	text-align: center;
+	border: 1px solid #ddd;
+}
+
+#tdTrn_no,#tdTrn_title,#tdTrn_write_date {
+	background-color: #F2F2F2;
+	font-weight: bold;
+	
+}
+
+
+#btnListUpDel {
+	padding:10px;
+}
+
+#btnWrite, #btnTrn_search {
+  background-color: #E6E6E6; 
+  border: none;
+  color: black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 1px 1px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: .2s ease-in;
+  font-family: 'Jua', sans-serif;
+}
+#btnWrite:hover {
+	background-color: #848484;
+	color:white;
+}
+
+#btnTrn_search:hover {
+	background-color: #848484;
+	color:white;
+}
+
 </style>
    <script type="text/javascript">
 	function goSearch() {
 		var frm = document.trainingSearchFrm;
-		frm.action = "<%=ctxpath%>/training_Search.do";
+		frm.action = "<%=ctxPath%>/training_Search.do";
 		frm.method = "post";
 		frm.submit();
 	}
 	</script> 
 </head>
 <body>
-
-	<form name=trainingSearchFrm>
-		<h2>관리자게시판</h2>
-		<input type="text" name="kwd" id="trainingSearch">
-		<button type="button" onclick="goSearch()">검색</button>
-
-		<table border="1" style="width: 500px; height: 150px">
-			<tr>
-
-				<th>글번호</th>
-				<th>제목</th>
-				<th>게시자</th>
-			</tr>
+<!-- header -->
+<jsp:include page="/common/header.jsp" />
+	<!--Section -->
+	<form name=trainingSearchFrm id="trainingSearchFrm">
+		<h2 class="h_title">관리자게시판</h2>
 			<c:if test="${not empty list}">
 				<c:forEach items="${ list }" var="mvo" varStatus="s">
-					<tr>
-						<td><a href="<%=ctxpath%>/trainingDetail.do?no=${mvo.trn_no}">${mvo.trn_no}</a></td>
-						<td>${mvo.trn_title}</td>
-						<td>${mvo.write_date}</td>
-
-					</tr>
-				</c:forEach>
-			</c:if>
-			<tr>
-				<td colspan="4"><a href="./view//training/fine_training_Write.jsp">
-						<input type="button" id="btnWrite" value="글쓰기">
-				</a>
-			</tr>
-
-			<tr>
-			</tr>
-		</table>
-		
+ 					<div id = "trnSearchTbl">
+						<table id ="trnSearchTable">
+							<tr>
+								<td id="tdTrn_no">글번호</td>
+								<td><a href="<%=ctxPath%>/trainingDetail.do?no=${mvo.trn_no}">${mvo.trn_no}</a></td>
+							</tr>
+							<tr>
+								<td id="tdTrn_title">제목</td>
+								<td>${mvo.trn_title}</td>
+							</tr>
+							<tr>
+								<td id="tdTrn_write_date">작성일</td>	
+								<td>${mvo.write_date}</td>
+							</tr>	
+						</table>
+					</div>
+			</c:forEach>
+					<div id="btnWriteSearch">
+						<input type="text" name="kwd" id="trainingSearch">
+						<button type="button" id="btnTrn_search" onclick="goSearch()">검색</button>
+						<a href="./view//training/fine_training_Write.jsp">
+						<input type="button" id="btnWrite" value="글쓰기"></a>
+					</div>
+		</c:if>
 		
 		<%
 		String kwd = request.getParameter("kwd");
@@ -98,7 +167,7 @@ table tr, th, td {
 
 		%>
 
-		<a href="<%=ctxpath%>/training_Search.do?pageNum=<%=i%>&kwd=<%=kwd%>"><%=i%></a>
+		<a href="<%=ctxPath%>/training_Search.do?pageNum=<%=i%>&kwd=<%=kwd%>"><%=i%></a>
 
 
 		<!-- //여기 나타내는거 -->
@@ -114,7 +183,7 @@ table tr, th, td {
 		} else {
 		%>
 		[<a
-			href="<%=ctxpath%>/training_Search.do?pageNum=<%=currentPage + 1%>&kwd=<%=kwd%>">다음</a>]
+			href="<%=ctxPath%>/training_Search.do?pageNum=<%=currentPage + 1%>&kwd=<%=kwd%>">다음</a>]
 		<%
 			}
 
@@ -123,50 +192,9 @@ table tr, th, td {
 		}
 
 		%>
-		<%-- <%
-	
-			if (count > 0) {
-				
-				if (b > 1 || endPage < pagecount) {
-				if (b == 1) {
-					%>
-					[<a style="display=none" href="<%=ctxpath%>/training_Search.do?currentPage=<%=b - 1%>&kwd=<%=kwd %>">이전</a>]
-					<%
-				} else {
-				%>
-				[<a href="<%=ctxpath%>//training_Search.do?currentPage=<%=b - 1%>&kwd=<%=kwd%>">이전</a>]
-				<%
-			}
 
-		}
-		for (int i = startPage; i <= endPage; i++) {
-
-		%>
-
-		<a href="<%=ctxpath%>/training_Search.do?currentPage=<%=i%>&kwd=<%=kwd %>"><%=i%></a>
-
-
-		<!-- //여기 나타내는거 -->
-		<!-- 다음 -->
-		<%
-			if (i == pagecount)
-			break;
-		}
-		if (b >= 1 && b < pagecount) {
-
-		if (b == pagecount) {
-
-		} else {
-		%>
-		[<a href="<%=ctxpath%>/training_Search.do?currentPage=<%=b + 1%>&kwd=<%=kwd %>">다음</a>]
-		<%
-			}
-
-		}
-
-		}
-
-		%> --%>
 	</form>
+	<!-- FOOTER -->
+	<jsp:include page="/common/footer.jsp" />
 </body>
 </html>

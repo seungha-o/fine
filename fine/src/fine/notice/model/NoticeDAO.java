@@ -46,15 +46,18 @@ public class NoticeDAO {
 		}
 		return count;
 	}
-	public int writeNotice(Connection conn, String title, String contents, List<String> img, int pin) {
+	public int writeNotice(Connection conn, String id, String title, String contents, List<String> img, int pin) {
 		int result1 = 0;
 		int result2 = 0;
-		String query = "INSERT INTO notice (notice_no, notice_title, notice_contents,notice_count,pin) VALUES(notice_no_seq.nextval, ?, ?, 0, ?)";
+		String query = "INSERT INTO notice (notice_no, id, notice_title, notice_contents,notice_count, pin) VALUES(notice_no_seq.nextval, ?, ?, ?, 0, ?)";
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, title);
-			pstmt.setString(2, contents);
-			pstmt.setInt(3, pin);
+		
+			pstmt.setString(1, id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, contents);
+			pstmt.setInt(4, pin);
+			
 			result1 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,7 +98,7 @@ public class NoticeDAO {
 				vo.setNotice_count(rs.getInt("notice_count"));
 				vo.setNotice_title(rs.getString("notice_title"));
 				vo.setNotice_contents(rs.getString("notice_contents"));
-				vo.setNotice_write_date(rs.getTimestamp("Notive_write_date"));
+				vo.setNotice_write_date(rs.getDate("Notive_write_date"));
 				vo.setPin(rs.getInt("pin"));
 				list.add(vo);
 			}
@@ -125,7 +128,7 @@ public class NoticeDAO {
 					vo.setNotice_count(rs.getInt("notice_count"));
 					vo.setNotice_title(rs.getString("notice_title"));
 					vo.setNotice_contents(rs.getString("notice_contents"));
-					vo.setNotice_write_date(rs.getTimestamp("Notive_write_date"));
+					vo.setNotice_write_date(rs.getDate("Notive_write_date"));
 					list.add(vo);
 				} while (rs.next());
 			}
@@ -189,7 +192,7 @@ public class NoticeDAO {
 					vo.setNotice_count(rs.getInt("notice_count"));
 					vo.setNotice_title(rs.getString("notice_title"));
 					vo.setNotice_contents(rs.getString("notice_contents"));
-					vo.setNotice_write_date(rs.getTimestamp("notive_write_date"));
+					vo.setNotice_write_date(rs.getDate("notive_write_date"));
 					list.add(vo);
 				} while (rs.next());
 			}
@@ -213,7 +216,7 @@ public class NoticeDAO {
 				vo.setNotice_count(rs.getInt("notice_count"));
 				vo.setNotice_title(rs.getString("notice_title"));
 				vo.setNotice_contents(rs.getString("notice_contents"));
-				vo.setNotice_write_date(rs.getTimestamp("Notive_write_date"));
+				vo.setNotice_write_date(rs.getDate("Notive_write_date"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -254,7 +257,7 @@ public class NoticeDAO {
 	}
 
 	public int UpdateNotice(Connection conn, String title, String content, int no , List<String> img) {
-		String sql = "update notice set notice_title = ?, notice_contents = ?" + "where notice_no = ?";
+		String sql = "update notice set notice_title = ?, notice_contents = ?" + " where notice_no = ?";
 		int result = 0;
 		int result2 = 0;
 		try {
@@ -269,6 +272,7 @@ public class NoticeDAO {
 			close(rs, pstmt);
 		}
 		for (int i = 0; i < img.size(); i++) {
+		
 			sql = "update tbl_img set img = ? where notice_no = ? ";
 			try {
 				pstmt = conn.prepareStatement(sql);

@@ -33,6 +33,7 @@ public class Fine_MyPage_Admin extends HttpServlet {
 			throws ServletException, IOException {		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		String ctx = request.getContextPath();
 		
 		MembersService services = new MembersService();						
 		String lev = "3"; 
@@ -95,7 +96,7 @@ public class Fine_MyPage_Admin extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("./view/member/myPageAdmin.jsp");
 				dispatcher.forward(request, response);
 			 }else {
-				 RequestDispatcher dispatcher2 = request.getRequestDispatcher("./view/member/error.jsp");
+				 RequestDispatcher dispatcher2 = request.getRequestDispatcher(ctx+"/findHowMany.do");
 					dispatcher2.forward(request, response); 
 			 }
 		

@@ -28,7 +28,7 @@ import fine.community.training.service.TrainingService;
 public class Training_Write extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String fileSavePath = "/upload";
-	private int uploadSizeLimit = 10 * 1024 * 1024;
+	private int uploadSizeLimit = 5000 * 1024 * 1024;
 	private String encType = "UTF-8";
        
     /**

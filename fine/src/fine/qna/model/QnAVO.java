@@ -101,5 +101,12 @@ public class QnAVO {
 	public void setRef_level(int ref_level) {
 		this.ref_level = ref_level;
 	}
+	@Override
+	public String toString() {
+		return "QnAVO [qna_no=" + qna_no + ", id=" + id + ", qna_title=" + qna_title + ", qna_contents=" + qna_contents
+				+ ", qna_statement=" + qna_statement + ", qna_pass=" + qna_pass + ", qna_count=" + qna_count
+				+ ", qna_write_date=" + qna_write_date + ", qna_img=" + qna_img + ", ref=" + ref + ", ref_step="
+				+ ref_step + ", ref_level=" + ref_level + "]";
+	}
 	
 }

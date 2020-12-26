@@ -34,7 +34,7 @@ public class QnA_List extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		QnAService qnaService = new QnAService();
-		int pageSize = 20; // 페이지 당 글 수
+		int pageSize = 10; // 페이지 당 글 수
 		int pageBlock = 10; // 페이지 링크 수
 		try {
 			// 총 글 개수
@@ -69,6 +69,11 @@ public class QnA_List extends HttpServlet {
 			List<QnAVO> list = QnAService.qnaList(startRnum, endRnum);
 
 			// 보내주기
+			String lev = (String) request.getSession().getAttribute("memberLev");
+			String  id = (String) request.getSession().getAttribute("sessionID");
+
+			request.setAttribute("id", id);
+			request.setAttribute("level", lev);
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("PageNum", currentPage);

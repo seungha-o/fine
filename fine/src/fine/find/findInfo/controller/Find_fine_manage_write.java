@@ -56,18 +56,14 @@ public class Find_fine_manage_write extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		String id = "hcare";
-		String lev = "2";
-		request.getSession().setAttribute("id", id);
-		request.getSession().setAttribute("lev", lev);
-		String checkId = (String) request.getSession().getAttribute("id");
-		if (request.getSession().getAttribute("lev") != "2") {
-			PrintWriter out = response.getWriter();
-			out.append("<script>alert('정상적인 접근이 아닙니다.')</script>");
-			out.println("<script>location.href='./view/main/index.jsp'</script>");
-		} else {
+	
+		
+		
+		
+		String checkId = (String) request.getSession().getAttribute("sessionID");;
+		
 			if (!ServletFileUpload.isMultipartContent(request))
-				response.sendRedirect("view/error/Error.jsp");
+				response.sendRedirect("findHowMany.do");
 
 			ServletContext context = getServletContext();
 			String uploadPath = context.getRealPath(fileSavePath);
@@ -142,9 +138,8 @@ public class Find_fine_manage_write extends HttpServlet {
 				vo.setSexCd(sexCd);
 				vo.setSpecialMark(specialMark);
 				vo.setWeight(weight);
-				vo.setFilename(file);
 				System.out.println("vo저장");
-				int result = fService.FindMangerWrite(checkId,vo);
+				int result = fService.FindMangerWrite(checkId,vo, file);
 				System.out.println(result);
 				if (result == 1) {
 					PrintWriter out = response.getWriter();
@@ -157,7 +152,7 @@ public class Find_fine_manage_write extends HttpServlet {
 				}
 			}
 		}
-	}
+	
 
 
 }

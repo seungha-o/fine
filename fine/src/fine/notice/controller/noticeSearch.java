@@ -94,7 +94,6 @@ public class noticeSearch extends HttpServlet {
 				request.setAttribute("PageNum", currentPage);
 				request.setAttribute("word", word);
 				request.setAttribute("list", list);	/* 변경 : el태그 - jsp이랑 맞추기  */
-				System.out.println(list.size()+ ", " + startPage + ", "+ endPage);
 				RequestDispatcher disp = request.getRequestDispatcher("/view/notice/noticeSearchList.jsp"); /*변경 : 경로*/
 				disp.forward(request, response);
 			

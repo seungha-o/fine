@@ -36,13 +36,17 @@ public class Find_Adopt_Detail extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		String ctx = request.getContextPath();
+		String id = (String) request.getSession().getAttribute("sessionID");
+		System.out.println(id);
 		if(request.getSession().getAttribute("sessionID") == null) {
 			PrintWriter out = response.getWriter();
 			out.append("<script>alert('로그인 후 이용해 주세요')</script>");
-			out.println("<script>location.href='./view/main/index.jsp'</script>"); 
+			out.println("<script>location.href='"+ctx+"/findHowMany.do'</script>"); 
 		}else {
-			int no = Integer.parseInt(request.getParameter("no"));
 			FindService fService = new FindService(); 
+			
+			int no = Integer.parseInt(request.getParameter("no"));
 			List<FindVO> list = new ArrayList<FindVO>();
 			list = fService.getFindDetail(no); 
 			System.out.println(list);

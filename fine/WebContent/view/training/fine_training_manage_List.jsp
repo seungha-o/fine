@@ -5,33 +5,123 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-	String ctxpath = request.getContextPath();
+	String ctxPath = request.getContextPath();
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insert title here</title>
+<!-- icon(fontawesome) -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"
+	crossorigin="anonymous"></script>
+<!-- link jQuery -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!-- link css -->
+<link rel="stylesheet" href="<%=ctxPath %>/css/head_foot.css" />
+<!-- font -->
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap"
+	rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Jua&display=swap"
+	rel="stylesheet" />
+	
+<!-- CSS -->
+<script src="https://kit.fontawesome.com/333b7ab4b4.js"></script>
 <link
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
 	rel="stylesheet">
-<script src="../js/jquery-3.5.1.js"></script>
-<title>Document</title>
+	
 <style>
-table {
-	border-collapse: collapse;
+
+/* SECTION */
+.h_title {
+	margin-bottom: 6vh;
+	font-family: 'Jua', sans-serif;
 }
 
-table tr, th, td {
-	border: 1px solid black;
+
+#trainingSearchFrm {
 	text-align: center;
-	padding: 5px;
+	margin: 10vh 0;
 }
+
+
+#trainingMgrTable {
+  	font-family: 'Jua', sans-serif;
+  	border-collapse: collapse;
+  	width:60%;
+	position: relative;
+    left: 50%; 
+    transform: translate(-50%);
+}
+
+#trainingMgrTable td, #trainingMgrTable th {
+	border-bottom: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+ 
+a {
+	text-decoration: none;		
+}
+
+
+#trainingMgrTable tr:hover {
+	background-color: #ddd;
+}
+
+#trainingMgrTable th {
+	border-top: 2px solid #A4A4A4;
+	border-bottom: 2px solid #A4A4A4;
+	padding-top:12px;
+	padding-bottom:12px;
+	text-align: center;
+	background-color: #F2F2F2;
+	color:#black;
+	text-decoration: none;
+	
+}
+#searchWrite {
+	text-align: center;
+	padding: 10px;
+	margin-top: 6vh;
+
+}
+
+#btnSearch, #btnWrite {
+  background-color: #E6E6E6; 
+  border: none;
+  color: black;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 1px 1px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: .2s ease-in;
+  font-family: 'Jua', sans-serif;
+}
+
+
+#btnSearch:hover {
+	background-color:#848484;
+	color:white;
+} 
+
+#btnWrite:hover {
+	background-color:#848484;
+	color:white;
+}
+
 </style>
    <script type="text/javascript">
 	function goSearch() {
 		var frm = document.trainingSearchFrm;
-		frm.action = "<%=ctxpath%>/training_Search.do";
+		frm.action = "<%=ctxPath%>/training_Search.do";
 		frm.method = "post";
 		frm.submit();
 	}
@@ -39,38 +129,38 @@ table tr, th, td {
 
 </head>
 <body>
-	<form name=trainingSearchFrm>
-		<h2>관리자게시판</h2>
-			<input type="text" name="kwd" id="trainingSearch">
-			<button type="button" onclick="goSearch()">검색</button>
-			
-		<table border="1" style="width: 500px; height: 150px">
+		<!-- header -->
+<jsp:include page="/common/header.jsp" />
+	<!-- section -->
+	<form name=trainingSearchFrm id="trainingSearchFrm">
+		<h1 class="h_title">관리자게시판</h1>
+	<div id="trainingMgrTbl" >	
+		<table id="trainingMgrTable">
 			<tr>
-
 				<th>글번호</th>
 				<th>제목</th>
-				<th>게시자</th>
+				<th>작성일</th>
 			</tr>
 			<c:if test="${not empty list}">
 				<c:forEach items="${ list }" var="mvo" varStatus="s">
 					<tr>
-						<td><a href="<%=ctxpath%>/trainingDetail.do?no=${mvo.trn_no}">${mvo.trn_no}</a></td>
+						<td><a href="<%=ctxPath%>/trainingDetail.do?no=${mvo.trn_no}">${mvo.trn_no}</a></td>
 						<td>${mvo.trn_title}</td>
 						<td>${mvo.write_date}</td>
 
 					</tr>
 				</c:forEach>
 			</c:if>
-			<tr>
-				<td colspan="4">
-				<a href="./view/training/fine_training_Write.jsp">
-				<input type="button" id="btnWrite" value="글쓰기"></a> 
-
-			</tr>
-			
-			<tr>
-			</tr>
 		</table>
+	</div>
+	<div id = "searchWrite">
+		<input type="text" name="kwd" id="trainingSearch">
+		<button type="button" id="btnSearch" onclick="goSearch()">검색</button>
+		<a href="./view/training/fine_training_Write.jsp"><input type="button"
+		 id="btnWrite" value="글쓰기"></a> 
+	</div>
+			
+		
 		<%
 		int count = (int)request.getAttribute("count");
 		int currentPage = (int)request.getAttribute("currentPage");
@@ -95,7 +185,7 @@ table tr, th, td {
 
 		%>
 
-		<a href="<%=ctxpath%>/trmListManager.do?pageNum=<%=i%>"><%=i%></a>
+		<a href="<%=ctxPath%>/trmListManager.do?pageNum=<%=i%>"><%=i%></a>
 		
 
 
@@ -111,7 +201,7 @@ table tr, th, td {
 
 		} else {
 		%>
-		[<a href="<%=ctxpath%>/trmListManager.do?pageNum=<%=currentPage + 1%>">다음</a>]
+		[<a href="<%=ctxPath%>/trmListManager.do?pageNum=<%=currentPage + 1%>">다음</a>]
 		<%
 			}
 
@@ -121,5 +211,7 @@ table tr, th, td {
 
 		%>
 	</form>
+		<!-- FOOTER -->
+	<jsp:include page="/common/footer.jsp" />
 </body>
 </html>

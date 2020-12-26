@@ -36,7 +36,7 @@ public class NoticeService {
 			e.printStackTrace();
 		}
 	}
-	public int writeNotice( String title, String contents, List<String> img, int pin) {
+	public int writeNotice(String id,  String title, String contents, List<String> img, int pin) {
 		int result = 0;
 		int count = 0;
 		try {
@@ -48,7 +48,7 @@ public class NoticeService {
 				result = -1;
 				System.out.println(result);
 			}
-			result = dao.writeNotice(conn, title, contents, img, pin);
+			result = dao.writeNotice(conn, id, title, contents, img, pin);
 			close();
 		} catch (SQLException e) {
 			result = 0;
@@ -143,6 +143,7 @@ public class NoticeService {
 		}
 		return result;
 	}
+
 
 	public int getCountNotice()  throws Exception {
 		int result = 0;

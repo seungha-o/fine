@@ -40,11 +40,12 @@ public class Find_manage_delete extends HttpServlet {
 		FindService fService = new FindService();
 		ServletContext context = getServletContext();
 		String no = request.getParameter("no");
-		vo.setDesertionNo(no);;
+		vo.setDesertionNo(no);
 		
 		String path = context.getRealPath("upload\\dog"); 
 		fService.FindDeleteFileName(vo);
 		String filepath = vo.getFilename();
+		filepath.substring(11);
 		System.out.println("filepath : "+filepath);
 		
 		System.out.println(path);

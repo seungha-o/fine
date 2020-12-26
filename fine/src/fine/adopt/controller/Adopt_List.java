@@ -69,6 +69,11 @@ public class Adopt_List extends HttpServlet {
 			List<AdoptVO> list = AdoptService.adoptList(startRnum, endRnum);
 
 			// 보내주기
+			String lev = (String) request.getSession().getAttribute("memberLev");
+			String  id = (String) request.getSession().getAttribute("sessionID");
+
+			request.setAttribute("id", id);
+			request.setAttribute("level", lev);
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("PageNum", currentPage);
@@ -77,7 +82,6 @@ public class Adopt_List extends HttpServlet {
 			request.setAttribute("pagecount", pageCount);
 
 			request.setAttribute("adoptList", list);
-			System.out.println(list.size() + ", " + startPage + ", " + endPage);
 			RequestDispatcher disp = request.getRequestDispatcher("/view/adopt/AdoptList.jsp");
 			disp.forward(request, response);
 		} catch (Exception e) {
