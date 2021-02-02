@@ -5,7 +5,7 @@
 1. [개요](#개요)
 2. [기대효과](#기대효과)
 3. [사용도구](#-사용도구)
-4. [개발계획](#-개발계획)
+4. [개발순서](#-개발순서)
 5. [보완점](#-보완점)
 
 ##  ✨ 개요
@@ -40,15 +40,20 @@
 - 파일업로드
 
 
-##  🔧 개발계획
+##  🔧 개발순서
 ![Fine](https://user-images.githubusercontent.com/69295153/106555996-fa452280-6561-11eb-8402-275fefdcea22.jpg)
 
-### 유스케이스 도출
+### DB 설계
 ![Fine](https://user-images.githubusercontent.com/69295153/106556224-6a53a880-6562-11eb-9067-943cb968e624.png)
 사용자를 일반 사용자 (입양을 희망하는 사람), 유기견 보호센터를 운영는 사용자, 사이트 관리자, 비회원으로 나누어 접근권한을 다르게 주었습니다. 
 
+### 테이블 기술서
+![kh2조 semi_1](https://user-images.githubusercontent.com/69295153/106628659-6143f500-65bd-11eb-9410-fb32a3e1f782.jpg)
+![kh2조 semi_2](https://user-images.githubusercontent.com/69295153/106628663-62752200-65bd-11eb-9b1d-0021e40a35b1.jpg)
+![kh2조 semi_3](https://user-images.githubusercontent.com/69295153/106628665-630db880-65bd-11eb-9f7b-77147828e2a9.jpg)
+
 ### notice 테이블 설계
-![11](https://user-images.githubusercontent.com/69295153/106557476-3f1e8880-6565-11eb-884f-7d08e65f0534.PNG)
+![Copy of fine (1)](https://user-images.githubusercontent.com/69295153/106625198-cdbcf500-65b9-11eb-8d8d-5b2bf0f4b582.png)
 
 ### notice 클래스 다이어그램
 ![Untitled Diagram](https://user-images.githubusercontent.com/69295153/106564533-ae4daa00-6570-11eb-8ce7-e412ecd999c2.png)
