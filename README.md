@@ -43,4 +43,7 @@
 ### notice 테이블 설계
 ![11](https://user-images.githubusercontent.com/69295153/106557476-3f1e8880-6565-11eb-884f-7d08e65f0534.PNG)
 
+### notice 클래스 다이어그램
+![Untitled Diagram](https://user-images.githubusercontent.com/69295153/106564533-ae4daa00-6570-11eb-8ce7-e412ecd999c2.png)
+
 
