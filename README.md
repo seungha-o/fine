@@ -190,6 +190,7 @@ function goRegister(){
 ```
 게시글을 등록한 후 submit전에 DB에 저장된 pin컬럼의 전체 합이 5가 넘으면 등록이되지 못하고 알림 창이 뜨도록 구현하였습니다. 
 #### 게시글 검색
+
 NoticeDAO.java
 ```
 	public List<NoticeVO> SearchNotice(Connection conn, String word, int startRnum, int endRnum) {
@@ -228,6 +229,18 @@ word 라는 String 변수의 값을 제목에서 찾아내어, 해당 게시글�
 List<NoticeVO>형의 메소드로 검색시 글 리스트가 보여지며 글 검색했을 시에도 페이징이 잘 되도록 startRnum과 endRnum변수를 주었습니다. 
   
 #### 글 작성 (파일업로드)
+공지사항 (notice)페이지의 글 작성은 관리자만 가능하므로 아래와 같이 관리자로그인을 한 경우(memberLev == 3)에만 글작성을 할 수 있도록 구현했습니다. 
+noticeList.jsp
+```
+		<tr>
+			<th colspan="5">
+		 <c:if test="${memberLev eq 3 }">	
+			<a href="noticeFixCount.do">글작성</a>
+			 </c:if>
+			</th>
+		</tr>
+```
+
 noticeWrite.java
 ```
 private void execute(HttpServletRequest request, HttpServletResponse response)
