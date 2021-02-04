@@ -1,6 +1,5 @@
 ## 🌞 FINE 🌞
 유기동물 입양 서비스 제공
-[![IU(아이유) _ Into the I-LAND](http://img.youtube.com/vi/QYNwbZHmh8g/0.jpg)](https://youtu.be/QYNwbZHmh8g?t=0s) 
 ## 목록 
 1. [개요](#개요)
 2. [기대효과](#기대효과)
@@ -61,4 +60,5 @@
 
 ## 작동영상
 <iframe width="560" height="315" src="https://www.youtube.com/embed/hPoQP96emqs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-[![예제](https://www.youtube.com/embed/hPoQP96emqs/0.jpg)](https://www.youtube.com/embed/hPoQP96emqs) 
+[![예제](https://img.youtube.com/embed/hPoQP96emqs/0.jpg)](https://www.youtube.com/embed/hPoQP96emqs) 
+[![IU(아이유) _ Into the I-LAND](http://img.youtube.com/vi/QYNwbZHmh8g/0.jpg)](https://youtu.be/QYNwbZHmh8g?t=0s) 
