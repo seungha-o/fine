@@ -1,6 +1,6 @@
 ## 🌞 FINE 🌞
 유기동물 입양 서비스 제공
-[![예제](https://img.youtube.com/hPoQP96emqs/0.jpg)](https://youtu.be/hPoQP96emqs) 
+[![예제](https://img.youtube.com/vi/hPoQP96emqs/0.jpg)](https://youtu.be/hPoQP96emqs) 
 [![f](http://img.youtube.com/vi/QYNwbZHmh8g/0.jpg)](https://youtu.be/QYNwbZHmh8g?t=0s) 
 
 ## 목록 
