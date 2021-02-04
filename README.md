@@ -44,7 +44,6 @@
 ![Fine](https://user-images.githubusercontent.com/69295153/106555996-fa452280-6561-11eb-8402-275fefdcea22.jpg)
 
 ### DB 설계
-![Fine](https://user-images.githubusercontent.com/69295153/106556224-6a53a880-6562-11eb-9067-943cb968e624.png)
 사용자를 일반 사용자 (입양을 희망하는 사람), 유기견 보호센터를 운영는 사용자, 사이트 관리자, 비회원으로 나누어 접근권한을 다르게 주었습니다. 
 
 ### 테이블 기술서
