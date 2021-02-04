@@ -35,7 +35,7 @@
 ## 👩‍💻 Member 
 
 #### 오승하
-- 공지사항 기능 전체
+- 공지사항 기능 전체(notice)
 - 글 작성시 고정글 설정 선택가능, 최상단에 위치
 - 파일업로드
 
@@ -44,19 +44,283 @@
 ![Fine](https://user-images.githubusercontent.com/69295153/106555996-fa452280-6561-11eb-8402-275fefdcea22.jpg)
 
 ### DB 설계
-사용자를 일반 사용자 (입양을 희망하는 사람), 유기견 보호센터를 운영는 사용자, 사이트 관리자, 비회원으로 나누어 접근권한을 다르게 주었습니다. 
+![Copy of fine (1)](https://user-images.githubusercontent.com/69295153/106625198-cdbcf500-65b9-11eb-8d8d-5b2bf0f4b582.png)
 
 ### 테이블 기술서
 ![kh2조 semi_1](https://user-images.githubusercontent.com/69295153/106628659-6143f500-65bd-11eb-9410-fb32a3e1f782.jpg)
 ![kh2조 semi_2](https://user-images.githubusercontent.com/69295153/106628663-62752200-65bd-11eb-9b1d-0021e40a35b1.jpg)
 ![kh2조 semi_3](https://user-images.githubusercontent.com/69295153/106628665-630db880-65bd-11eb-9f7b-77147828e2a9.jpg)
 
-### notice 테이블 설계
-![Copy of fine (1)](https://user-images.githubusercontent.com/69295153/106625198-cdbcf500-65b9-11eb-8d8d-5b2bf0f4b582.png)
-
 ### notice 클래스 다이어그램
 ![Untitled Diagram](https://user-images.githubusercontent.com/69295153/106564533-ae4daa00-6570-11eb-8ce7-e412ecd999c2.png)
 
+### 주요소스 
+#### 게시판 페이징
+noticeList.jsp
+```
+		int pageSize = 10; // 페이지 당 글 수
+		int pageBlock = 10; // 페이지 링크 수
+		try {			
+				//총 글 개수 
+			int nCount = nService.getBoardCount();
+			System.out.println(nCount);
+//페이지 수 초기화
+			String pageNum = request.getParameter("pageNum");
+			if (pageNum == null) {
+				pageNum = "1";
+			} else if(pageNum.equals("")){
+				pageNum = "1";
+			}
+ //startPage , endPage 구하는 식
+			int currentPage = 1;
+			try {
+				currentPage = Integer.parseInt(pageNum);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			int pageCount = (nCount / pageSize) + (nCount % pageSize == 0 ? 0 : 1);
+			int startPage = 1;
+			int endPage = 1;
+			if (currentPage % pageBlock == 0) {
+				startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
+			} else {
+				startPage = ((currentPage / pageBlock)) * pageBlock + 1;
+			}
+			endPage = startPage + pageBlock - 1;
+			if (endPage > pageCount)
+				endPage = pageCount;
+				// 페이징 rownum 
+			int startRnum = ((currentPage-1)*pageSize)+1;	
+			int endRnum = startRnum + pageSize - 1;			// currentPage*pageSize
+			List<NoticeVO> list = nService.getBoardPage(startRnum , endRnum); 
+				// 보내주기 
+			System.out.println(startPage);
+			System.out.println(endPage);
+		
+			request.setAttribute("startPage", startPage);  
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("PageNum", currentPage);
+			request.setAttribute("list", list);	/* 변경 : el태그 - jsp이랑 맞추기  */
+//			System.out.println(list.size()+ ", " + startPage + ", "+ endPage);
+			RequestDispatcher disp = request.getRequestDispatcher("/view/notice/noticeList.jsp"); /*변경 : 경로*/
+			disp.forward(request, response);
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+```
+NoticeDAO.java
+```
+	// 공지사항 목록 페이징 - 공지사항 총 글 개수
+	public int getBoardCount(Connection conn) throws SQLException {
+		int cnt = 0;
+		String sql = "select COUNT(*) from notice";
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+			if (rs.next()) {
+				cnt = rs.getInt(1);
+			}
+		} finally {
+			close(rs, pstmt);
+		}
+		return cnt;
+	}
 
-## 작동영상
+	// 공지사항 목록
+	public List<NoticeVO> getBoardPage(Connection conn, int start, int end) throws SQLException {
+		List<NoticeVO> list = new ArrayList<NoticeVO>();
+		NoticeVO vo = null;
+		String sql = "select * from (select ROWNUM rnum, n.* from (select * from notice order by pin desc, notice_no desc) n) where rnum >= ? and rnum <= ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				do {
+					vo = new NoticeVO();
+					vo.setNotice_no(rs.getInt("notice_no"));
+					vo.setId(rs.getString("id"));
+					vo.setNotice_count(rs.getInt("notice_count"));
+					vo.setNotice_title(rs.getString("notice_title"));
+					vo.setNotice_contents(rs.getString("notice_contents"));
+					vo.setNotice_write_date(rs.getDate("notive_write_date"));
+					list.add(vo);
+				} while (rs.next());
+			}
+		} finally {
+			close(rs, pstmt);
+		}
+		return list;
+	}
+```
+noticeList.jsp
+```
+	<!--페이징 숫자-->
+			<div class="pagediv">
+				<c:if test="${startPage != endPage}">
+					<c:forEach varStatus="s"  begin="${startPage}" end="${endPage}" step="1">
+						<a href="noticeList.do?pageNum=${s.count}">${s.count}</a>	
+					</c:forEach>
+				</c:if>
+			</div>
+```
+게시판 페이징을 위한 소스코드입니다. 글 목록은 DB의 pin이라는 컬럼을 0과 1로 제약조건을 걸어준 후, 체크가 된(=1)인 게시글을 먼저 정렬한 후, 날짜별로 정열하여 고정글이 최상단으로 올 수 있게 구현하였습니다. 
+또한 고정글은 최대 5개까지만 설정할 수 있도록하여, 무분별한 고정글로 인해 가독성이 떨어지는 것을 방지하였습니다. 고정글 개수 카운트는 아래와 같이 작성하였습니다. 
+noticeWrite.jsp
+```
+<script type="text/javascript">
+function goRegister(){
+	var count = $('#count').val();
+	
+	if($('#count').val() < 5 || document.getElementById("pin").checked == false){
+		var frm = document.write;
+		frm.action = "<%=ctxPath%>/noticeWrite.do";
+		frm.method = "post";
+		frm.submit();		 
+	}
+	else {
+		alert("고정글은 다섯개만 등록할수 있습니다.");
+	}
+}
+</script>
+<input type = "hidden" id = "count" name = "count" value  = "${cnt}">
+```
+게시글을 등록한 후 submit전에 DB에 저장된 pin컬럼의 전체 합이 5가 넘으면 등록이되지 못하고 알림 창이 뜨도록 구현하였습니다. 
+#### 게시글 검색
+NoticeDAO.java
+```
+	public List<NoticeVO> SearchNotice(Connection conn, String word, int startRnum, int endRnum) {
+		List<NoticeVO> list = new ArrayList<NoticeVO>();
+		String sql = "select * from(select rownum rnum, d.* from "
+				+ "(select * from notice where notice_title like ? order by pin desc, notice_no desc) d) "
+				+ "where rnum >= ? and rnum <= ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + word + "%");
+			pstmt.setInt(2, startRnum);
+			pstmt.setInt(3, endRnum);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				list = new ArrayList<NoticeVO>();
+				do {
+					NoticeVO vo = new NoticeVO();
+					vo.setNotice_no(rs.getInt("notice_no"));
+					vo.setId(rs.getString("id"));
+					vo.setNotice_count(rs.getInt("notice_count"));
+					vo.setNotice_title(rs.getString("notice_title"));
+					vo.setNotice_contents(rs.getString("notice_contents"));
+					vo.setNotice_write_date(rs.getDate("Notive_write_date"));
+					list.add(vo);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		return list;
+	}
+```
+word 라는 String 변수의 값을 제목에서 찾아내어, 해당 게시글의 글번호와, 작성자, 조회수, 제목, 내용, 날짜를 셋해주는 소스코드입니다. 
+List<NoticeVO>형의 메소드로 검색시 글 리스트가 보여지며 글 검색했을 시에도 페이징이 잘 되도록 startRnum과 endRnum변수를 주었습니다. 
+  
+#### 글 작성 (파일업로드)
+noticeWrite.java
+```
+private void execute(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String id = (String) request.getSession().getAttribute("sessionID");
+		System.out.println(id);
+		NoticeService nService = new NoticeService();
+		String folderPath = getServletContext().getRealPath("/files");
+		MultipartRequest mReq = new MultipartRequest(request, folderPath, 5 * 1024 * 1024, "utf-8",
+				new DefaultFileRenamePolicy());
+		
+		List<String> saveFiles = new ArrayList<String>();
+		List<String> originFiles = new ArrayList<String>();
+		Enumeration<String> files = mReq.getFileNames();
+	
+		while (files.hasMoreElements()) {
+			String name = files.nextElement();
+			String filename = mReq.getFilesystemName(name);
+			String originfilename = mReq.getOriginalFileName(name);
+			saveFiles.add(filename);
+			originFiles.add(originfilename);
+		}	
+		String title = mReq.getParameter("notice_title");
+		String contents = mReq.getParameter("notice_contents");
+		int pin = 0;
+		if (mReq.getParameter("pin") != null){
+		 pin = Integer.parseInt(mReq.getParameter("pin"));
+		}
+
+		NoticeVO vo = new NoticeVO();
+		if (title != null && contents != null) {
+			vo.setNotice_title(title);
+			vo.setNotice_contents(contents);
+			vo.setNotice_img(saveFiles);
+			vo.setPin(pin);
+			vo.setId(id);
+			
+			int result = nService.writeNotice(id, title, contents, saveFiles, pin);
+		
+			if (result < 0) {
+				response.sendRedirect("<script>alert('오류가 발생했습니다.');</script>");
+				return;
+			}
+		}
+		response.sendRedirect("noticeList.do");
+	}
+```
+NoticeDAO.java
+```
+  public int writeNotice(Connection conn, String id, String title, String contents, List<String> img, int pin) {
+		int result1 = 0;
+		int result2 = 0;
+		String query = "INSERT INTO notice (notice_no, id, notice_title, notice_contents,notice_count, pin) VALUES(notice_no_seq.nextval, ?, ?, ?, 0, ?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+		
+			pstmt.setString(1, id);
+			pstmt.setString(2, title);
+			pstmt.setString(3, contents);
+			pstmt.setInt(4, pin);
+			
+			result1 = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		} 
+		if (img == null) {
+			result2 =1;
+		}else {
+		for (int i = 0; i < img.size(); i++) {
+			query = "INSERT INTO tbl_img (img_no, notice_no, img) VALUES(img_seq.nextval, notice_no_seq.currval, ? )";
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, (String)img.get(i));
+				result2 = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt);
+			}
+		}
+		}
+		if (result1 != 0 || result2 != 0 ) 
+			return 1;
+			else return 0;
+	}
+```
+글 작성시 이미지를 등록할 수 있습니다. 이미지를 등록하지 않았다면 notice테이블에 글만 인서트되며 이미지가 null이 아닐시에는 tbl_img에 해당 이미지를 인서트합니다. 
+하나의 글 번호에 이미지가 여러장 입력될 시, 이미지의 사이즈만큼 쿼리문을 수행하며 이미지를 셋해줍니다.
+이미지가 등록에 실패했다면 글 등록도 실패합니다. 
+
+
+## 작동 영상
+간단한 작동 영상입니다. 
 [![예제](https://img.youtube.com/vi/hPoQP96emqs/0.jpg)](https://youtu.be/hPoQP96emqs) 
