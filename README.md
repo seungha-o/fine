@@ -52,10 +52,12 @@
 ![kh2조 semi_2](https://user-images.githubusercontent.com/69295153/106628663-62752200-65bd-11eb-9b1d-0021e40a35b1.jpg)
 ![kh2조 semi_3](https://user-images.githubusercontent.com/69295153/106628665-630db880-65bd-11eb-9f7b-77147828e2a9.jpg)
 
-### notice 테이블 설계
+### notice 테이블 설계https://youtu.be/hPoQP96emqs
 ![Copy of fine (1)](https://user-images.githubusercontent.com/69295153/106625198-cdbcf500-65b9-11eb-8d8d-5b2bf0f4b582.png)
 
 ### notice 클래스 다이어그램
 ![Untitled Diagram](https://user-images.githubusercontent.com/69295153/106564533-ae4daa00-6570-11eb-8ce7-e412ecd999c2.png)
 
 
+## 작동영상
+<iframe width="640" height="360" src="https://youtu.be/hPoQP96emqs" frameborder="0" gesture="media" allowfullscreen=""></iframe>
