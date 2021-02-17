@@ -316,6 +316,22 @@ NoticeDAO.java
 			else return 0;
 	}
 ```
+```jsx
+public int DeleteNotice(Connection conn, int no) {
+		String sql = "DELETE FROM notice WHERE notice_no = ?";
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		return result;
+	}
+```
 글 작성시 이미지를 등록할 수 있습니다. 이미지를 등록하지 않았다면 notice테이블에 글만 인서트되며 이미지가 null이 아닐시에는 tbl_img에 해당 이미지를 인서트합니다. 
 하나의 글 번호에 이미지가 여러장 입력될 시, 이미지의 사이즈만큼 쿼리문을 수행하며 이미지를 셋해줍니다.
 이미지가 등록에 실패했다면 글 등록도 실패합니다. 
