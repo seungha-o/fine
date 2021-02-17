@@ -252,11 +252,9 @@ private void execute(HttpServletRequest request, HttpServletResponse response)
 		String folderPath = getServletContext().getRealPath("/files");
 		MultipartRequest mReq = new MultipartRequest(request, folderPath, 5 * 1024 * 1024, "utf-8",
 				new DefaultFileRenamePolicy());
-		
 		List<String> saveFiles = new ArrayList<String>();
 		List<String> originFiles = new ArrayList<String>();
 		Enumeration<String> files = mReq.getFileNames();
-	
 		while (files.hasMoreElements()) {
 			String name = files.nextElement();
 			String filename = mReq.getFilesystemName(name);
@@ -270,7 +268,6 @@ private void execute(HttpServletRequest request, HttpServletResponse response)
 		if (mReq.getParameter("pin") != null){
 		 pin = Integer.parseInt(mReq.getParameter("pin"));
 		}
-
 		NoticeVO vo = new NoticeVO();
 		if (title != null && contents != null) {
 			vo.setNotice_title(title);
@@ -278,9 +275,7 @@ private void execute(HttpServletRequest request, HttpServletResponse response)
 			vo.setNotice_img(saveFiles);
 			vo.setPin(pin);
 			vo.setId(id);
-			
 			int result = nService.writeNotice(id, title, contents, saveFiles, pin);
-		
 			if (result < 0) {
 				response.sendRedirect("<script>alert('오류가 발생했습니다.');</script>");
 				return;
@@ -297,12 +292,10 @@ NoticeDAO.java
 		String query = "INSERT INTO notice (notice_no, id, notice_title, notice_contents,notice_count, pin) VALUES(notice_no_seq.nextval, ?, ?, ?, 0, ?)";
 		try {
 			pstmt = conn.prepareStatement(query);
-		
 			pstmt.setString(1, id);
 			pstmt.setString(2, title);
 			pstmt.setString(3, contents);
 			pstmt.setInt(4, pin);
-			
 			result1 = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
