@@ -187,6 +187,14 @@ function goRegister(){
 	}
 }
 </script>
+
+	<tr>
+		<th>고정글</th>
+			<td  id = 'fix' style="width: 14px;"><input type="checkbox" name="pin" id ="pin" value="1" ></td>
+			<th style="float:right"> 
+			<button type="button" id="btnRegister" onclick="goRegister()">등록</button>&nbsp;&nbsp; 
+			<a href="<%=ctxPath%>/noticeList.do" style =" margin-right: 5px;">목록보기</a></th>
+		</tr>
 <input type = "hidden" id = "count" name = "count" value  = "${cnt}">
 ```
 게시글을 등록한 후 submit전에 DB에 저장된 pin컬럼의 전체 합이 5가 넘으면 등록이되지 못하고 알림 창이 뜨도록 구현하였습니다. 
