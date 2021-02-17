@@ -57,7 +57,7 @@
 ### 주요소스 
 #### 게시판 페이징
 noticeList.jsp
-```
+```jsx
 		int pageSize = 10; // 페이지 당 글 수
 		int pageBlock = 10; // 페이지 링크 수
 		try {			
@@ -111,7 +111,7 @@ noticeList.jsp
 	}
 ```
 NoticeDAO.java
-```
+```jsx
 	// 공지사항 목록 페이징 - 공지사항 총 글 개수
 	public int getBoardCount(Connection conn) throws SQLException {
 		int cnt = 0;
@@ -157,7 +157,7 @@ NoticeDAO.java
 	}
 ```
 noticeList.jsp
-```
+```jsx
 	<!--페이징 숫자-->
 			<div class="pagediv">
 				<c:if test="${startPage != endPage}">
@@ -170,7 +170,7 @@ noticeList.jsp
 게시판 페이징을 위한 소스코드입니다. 글 목록은 DB의 pin이라는 컬럼을 0과 1로 제약조건을 걸어준 후, 체크가 된(=1)인 게시글을 먼저 정렬한 후, 날짜별로 정열하여 고정글이 최상단으로 올 수 있게 구현하였습니다. 
 또한 고정글은 최대 5개까지만 설정할 수 있도록하여, 무분별한 고정글로 인해 가독성이 떨어지는 것을 방지하였습니다. 고정글 개수 카운트는 아래와 같이 작성하였습니다. 
 noticeWrite.jsp
-```
+```jsx
 <script type="text/javascript">
 function goRegister(){
 	var count = $('#count').val();
@@ -192,7 +192,7 @@ function goRegister(){
 #### 게시글 검색
 
 NoticeDAO.java
-```
+```jsx
 	public List<NoticeVO> SearchNotice(Connection conn, String word, int startRnum, int endRnum) {
 		List<NoticeVO> list = new ArrayList<NoticeVO>();
 		String sql = "select * from(select rownum rnum, d.* from "
@@ -231,7 +231,7 @@ List<NoticeVO>형의 메소드로 검색시 글 리스트가 보여지며 글 �
 #### 글 작성 (파일업로드)
 공지사항 (notice)페이지의 글 작성은 관리자만 가능하므로 아래와 같이 관리자로그인을 한 경우(memberLev == 3)에만 글작성을 할 수 있도록 구현했습니다. 
 noticeList.jsp
-```
+```jsx
 		<tr>
 			<th colspan="5">
 		 <c:if test="${memberLev eq 3 }">	
@@ -242,7 +242,7 @@ noticeList.jsp
 ```
 
 noticeWrite.java
-```
+```jsx
 private void execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = (String) request.getSession().getAttribute("sessionID");
@@ -289,7 +289,7 @@ private void execute(HttpServletRequest request, HttpServletResponse response)
 	}
 ```
 NoticeDAO.java
-```
+```jsx
   public int writeNotice(Connection conn, String id, String title, String contents, List<String> img, int pin) {
 		int result1 = 0;
 		int result2 = 0;
