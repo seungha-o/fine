@@ -171,6 +171,7 @@ noticeList.jsp
 게시판 페이징을 위한 소스코드입니다. 글 목록은 DB의 pin이라는 컬럼을 0과 1로 제약조건을 걸어준 후, 체크가 된(=1)인 게시글을 먼저 정렬한 후, 날짜별로 정열하여 고정글이 최상단으로 올 수 있게 구현하였습니다. 
 또한 고정글은 최대 5개까지만 설정할 수 있도록하여, 무분별한 고정글로 인해 가독성이 떨어지는 것을 방지하였습니다. 고정글 개수 카운트는 아래와 같이 작성하였습니다. 
 noticeWrite.jsp
+
 ```jsx
 <script type="text/javascript">
 function goRegister(){
@@ -187,7 +188,8 @@ function goRegister(){
 	}
 }
 </script>
-
+```
+```jsx
 	<tr>
 		<th>고정글</th>
 			<td  id = 'fix' style="width: 14px;"><input type="checkbox" name="pin" id ="pin" value="1" ></td>
