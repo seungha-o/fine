@@ -289,7 +289,8 @@ NoticeDAO.java
   public int writeNotice(Connection conn, String id, String title, String contents, List<String> img, int pin) {
 		int result1 = 0;
 		int result2 = 0;
-		String query = "INSERT INTO notice (notice_no, id, notice_title, notice_contents,notice_count, pin) VALUES(notice_no_seq.nextval, ?, ?, ?, 0, ?)";
+		String query = "INSERT INTO notice (notice_no, id, notice_title, notice_contents,notice_count, pin)
+		VALUES(notice_no_seq.nextval, ?, ?, ?, 0, ?)";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, id);
@@ -297,8 +298,7 @@ NoticeDAO.java
 			pstmt.setString(3, contents);
 			pstmt.setInt(4, pin);
 			result1 = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (SQLException e) { e.printStackTrace();
 		} finally {
 			close(rs, pstmt);
 		} 
