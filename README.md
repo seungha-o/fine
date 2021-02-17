@@ -57,58 +57,21 @@
 ### 주요소스 
 #### 게시판 페이징
 noticeList.jsp
-```jsx
-		int pageSize = 10; // 페이지 당 글 수
-		int pageBlock = 10; // 페이지 링크 수
-		try {			
-				//총 글 개수 
-			int nCount = nService.getBoardCount();
-			System.out.println(nCount);
-//페이지 수 초기화
-			String pageNum = request.getParameter("pageNum");
-			if (pageNum == null) {
-				pageNum = "1";
-			} else if(pageNum.equals("")){
-				pageNum = "1";
-			}
- //startPage , endPage 구하는 식
-			int currentPage = 1;
-			try {
-				currentPage = Integer.parseInt(pageNum);
-			} catch(Exception e) {
-				e.printStackTrace();
-			}
-			int pageCount = (nCount / pageSize) + (nCount % pageSize == 0 ? 0 : 1);
-			int startPage = 1;
-			int endPage = 1;
-			if (currentPage % pageBlock == 0) {
-				startPage = ((currentPage / pageBlock) - 1) * pageBlock + 1;
-			} else {
-				startPage = ((currentPage / pageBlock)) * pageBlock + 1;
-			}
-			endPage = startPage + pageBlock - 1;
-			if (endPage > pageCount)
-				endPage = pageCount;
-				// 페이징 rownum 
-			int startRnum = ((currentPage-1)*pageSize)+1;	
-			int endRnum = startRnum + pageSize - 1;			// currentPage*pageSize
-			List<NoticeVO> list = nService.getBoardPage(startRnum , endRnum); 
-				// 보내주기 
-			System.out.println(startPage);
-			System.out.println(endPage);
-		
-			request.setAttribute("startPage", startPage);  
-			request.setAttribute("endPage", endPage);
-			request.setAttribute("PageNum", currentPage);
-			request.setAttribute("list", list);	/* 변경 : el태그 - jsp이랑 맞추기  */
-//			System.out.println(list.size()+ ", " + startPage + ", "+ endPage);
-			RequestDispatcher disp = request.getRequestDispatcher("/view/notice/noticeList.jsp"); /*변경 : 경로*/
-			disp.forward(request, response);
-		
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+<script type="text/javascript">
+function goRegister(){
+	var count = $('#count').val();
+	
+	if($('#count').val() < 5 || document.getElementById("pin").checked == false){
+		var frm = document.write;
+		frm.action = "<%=ctxPath%>/noticeWrite.do";
+		frm.method = "post";
+		frm.submit();		 
 	}
+	else {
+		alert("고정글은 다섯개만 등록할수 있습니다.");
+	}
+}
+</script>
 ```
 NoticeDAO.java
 ```jsx
