@@ -57,21 +57,41 @@
 ### 주요소스 
 #### 게시판 페이징
 noticeList.jsp
-<script type="text/javascript">
-function goRegister(){
-	var count = $('#count').val();
-	
-	if($('#count').val() < 5 || document.getElementById("pin").checked == false){
-		var frm = document.write;
-		frm.action = "<%=ctxPath%>/noticeWrite.do";
-		frm.method = "post";
-		frm.submit();		 
+```jsx
+public int UpdateNotice(Connection conn, String title, String content, int no , List<String> img) {
+		String sql = "update notice set notice_title = ?, notice_contents = ?" + " where notice_no = ?";
+		int result = 0;
+		int result2 = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, no);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt);
+		}
+		for (int i = 0; i < img.size(); i++) {
+		
+			sql = "update tbl_img set img = ? where notice_no = ? ";
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, (String)img.get(i));
+				pstmt.setInt(2, no);
+				System.out.println(img);
+				result2 = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt);
+			}
+		}
+		if (result != 0 && result2 != 0 ) 
+			return 1;
+			else return 0;
 	}
-	else {
-		alert("고정글은 다섯개만 등록할수 있습니다.");
-	}
-}
-</script>
 ```
 NoticeDAO.java
 ```jsx
