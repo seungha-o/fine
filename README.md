@@ -132,7 +132,8 @@ NoticeDAO.java
 	public List<NoticeVO> getBoardPage(Connection conn, int start, int end) throws SQLException {
 		List<NoticeVO> list = new ArrayList<NoticeVO>();
 		NoticeVO vo = null;
-		String sql = "select * from (select ROWNUM rnum, n.* from (select * from notice order by pin desc, notice_no desc) n) where rnum >= ? and rnum <= ?";
+		String sql = "select * from (select ROWNUM rnum, n.* from (select * from notice order by pin desc, notice_no desc) n)
+		where rnum >= ? and rnum <= ?";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start);
